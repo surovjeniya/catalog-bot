@@ -13,32 +13,60 @@ export class CatalogUpdate {
   ) {}
   @Command(Commands.catalog)
   async catalogCommand(@Ctx() ctx: TelegrafContext) {
-    const categories = await this.api.getCategories(ctx);
-    const parentCategories = categories.data.filter(
-      (category) => category.attributes.parent_category.data === null,
-    );
-    const menu = parentCategories.map((item) => {
-      return {
-        text: item.attributes.name,
-        data: `/child-categories/${item.attributes.slug}`,
-      };
+    // const categories = await this.api.getCategories(ctx);
+    // const parentCategories = categories.data.filter(
+    //   (category) => category.attributes.parent_category.data === null,
+    // );
+    // const menu = parentCategories.map((item) => {
+    //   return {
+    //     text: item.attributes.name,
+    //     data: `/child-categories/${item.attributes.slug}`,
+    //   };
+    // });
+    // await ctx.reply('Выберите категорию:', getInlineButtons(menu, 1));
+    await ctx.reply('Для просмотра каталога нажмите кнопку ниже 👇', {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: 'Посмотреть каталог 🗃️',
+              web_app: {
+                url: `${this.configService.get('API').split('api')[0]}/catalog`,
+              },
+            },
+          ],
+        ],
+      },
     });
-    await ctx.reply('Выберите категорию:', getInlineButtons(menu, 1));
   }
 
   @Action(Commands.catalog)
   async catalogAction(@Ctx() ctx: TelegrafContext) {
-    const categories = await this.api.getCategories(ctx);
-    const parentCategories = categories.data.filter(
-      (category) => category.attributes.parent_category.data === null,
-    );
-    const menu = parentCategories.map((item) => {
-      return {
-        text: item.attributes.name,
-        data: `/child-categories/${item.attributes.slug}`,
-      };
+    // const categories = await this.api.getCategories(ctx);
+    // const parentCategories = categories.data.filter(
+    //   (category) => category.attributes.parent_category.data === null,
+    // );
+    // const menu = parentCategories.map((item) => {
+    //   return {
+    //     text: item.attributes.name,
+    //     data: `/child-categories/${item.attributes.slug}`,
+    //   };
+    // });
+    // await ctx.reply('Выберите категорию:', getInlineButtons(menu, 1));
+    await ctx.reply('Для просмотра каталога нажмите кнопку ниже 👇', {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: 'Посмотреть каталог 🗃️',
+              web_app: {
+                url: `${this.configService.get('API').split('api')[0]}/catalog`,
+              },
+            },
+          ],
+        ],
+      },
     });
-    await ctx.reply('Выберите категорию:', getInlineButtons(menu, 1));
   }
 
   @Action(/(?<=child-categories\/).*/)

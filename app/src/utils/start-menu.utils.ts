@@ -22,6 +22,14 @@ export const getStartMenu = (
         text: '➕ Разместить услугу',
         data: Commands['create-service'],
       },
+      {
+        text: '🤝 Поддержка',
+        data: Commands.support,
+      },
+      {
+        text: '🤖 AI-копирайтер',
+        data: Commands.ai,
+      },
     ];
   } else {
     menu = [
@@ -38,12 +46,20 @@ export const getStartMenu = (
         data: Commands['create-service'],
       },
       {
-        text: '🌈 Регистрация',
+        text: '🎫 Регистрация',
         data: Commands.register,
       },
       {
-        text: '🎫 Вход',
+        text: '🚪 Вход',
         data: Commands['sign-in'],
+      },
+      {
+        text: '🤝 Поддержка',
+        data: Commands.support,
+      },
+      {
+        text: '🤖 AI-копирайтер',
+        data: Commands.ai,
       },
     ];
   }
