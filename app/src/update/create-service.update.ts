@@ -193,6 +193,11 @@ export class CreateServiceUpdate {
   @Action('send-to-chat')
   async sendMessageToChat(@Ctx() ctx: TelegrafContext) {
     const { serviceId, chatId, categorySlug } = ctx.session.create_service_ctx;
+    const {
+      data: {
+        attributes: { review },
+      },
+    } = await this.sellersHubBotApi.getService(+serviceId, ctx);
     if (ctx.session.create_service_ctx.image) {
       await ctx.telegram.sendPhoto(
         ctx.session.create_service_ctx.chatId,
@@ -205,7 +210,7 @@ export class CreateServiceUpdate {
                 inline_keyboard: [
                   [
                     {
-                      text: 'Показать отзывы 🗣️',
+                      text: `Показать отзывы 🗣️ (${review.data.length})`,
                       callback_data: `/show-more-info/reviews/${serviceId}/${chatId}`,
                     },
                   ],
@@ -254,7 +259,7 @@ export class CreateServiceUpdate {
                 inline_keyboard: [
                   [
                     {
-                      text: 'Показать отзывы 🗣️',
+                      text: `Показать отзывы 🗣️ (${review.data.length})`,
                       callback_data: `/show-more-info/reviews/${serviceId}/${chatId}`,
                     },
                   ],
