@@ -11,38 +11,38 @@ export const getStartMenu = (
   if (ctx.session.jwt) {
     menu = [
       {
-        text: 'Персональный подбор специалиста',
+        text: '🚚 Индивидуальный заказ',
         data: Commands.personal,
       },
       {
-        text: 'Каталог',
+        text: '🗃️ Каталог',
         data: Commands.catalog,
       },
       {
-        text: 'Разместить услугу',
+        text: '➕ Разместить услугу',
         data: Commands['create-service'],
       },
     ];
   } else {
     menu = [
       {
-        text: 'Персональный подбор специалиста',
+        text: '🚚 Индивидуальный заказ',
         data: Commands.personal,
       },
       {
-        text: 'Каталог',
+        text: '🗃️ Каталог',
         data: Commands.catalog,
       },
       {
-        text: 'Разместить услугу',
+        text: '➕ Разместить услугу',
         data: Commands['create-service'],
       },
       {
-        text: 'Регистрация',
+        text: '🌈 Регистрация',
         data: Commands.register,
       },
       {
-        text: 'Вход',
+        text: '🎫 Вход',
         data: Commands['sign-in'],
       },
     ];

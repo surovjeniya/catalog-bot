@@ -5,7 +5,7 @@ import { TelegrafContext } from './interface/telegraf.context';
 import { getStartMenu } from './utils/start-menu.utils';
 import { SellersHubBotApi } from './utils/api-class.utils';
 import { getInlineButtons } from './utils/get-buttons.utils';
-import { getStartMessage, YOU_EXIT } from './message';
+import { getStartMessage } from './message';
 
 @Update()
 export class AppUpdate {

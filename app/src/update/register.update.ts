@@ -3,10 +3,8 @@ import { Actions } from 'src/enum/actions.enum';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import {
-  ENTER_PASSWORD,
   getSignInCredentials as getSignInCredentials,
   INVALID_EMAIL,
-  REGISTER_SUCCESS,
 } from 'src/message';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
@@ -19,7 +17,9 @@ export class RegisterUpdate {
   async registerAction(@Ctx() ctx: TelegrafContext) {
     ctx.session.action = Actions.register;
     this.clearRegisterData(ctx);
-    await ctx.replyWithHTML(REGISTER_SUCCESS);
+    await ctx.replyWithHTML(
+      `Для продолжения регистрации введите свой валидный <b>email</b>.\nНа этот адрес придёт письмо с подтвеждением регистрации. 👇`,
+    );
   }
 
   @On('photo')
