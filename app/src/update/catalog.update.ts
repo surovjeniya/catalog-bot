@@ -43,14 +43,20 @@ export class CatalogUpdate {
   @Action(Commands.catalog)
   async catalogAction(@Ctx() ctx: TelegrafContext) {
     const categories = await this.api.getCategories(ctx);
-    const parentCategories = categories.data.filter(
-      (category) => category.attributes.parent_category.data === null,
-    );
+    const parentCategories = categories.data
+      .filter((category) => category.attributes.parent_category.data === null)
+      .sort((a, b) =>
+        a.attributes.sort_index < b.attributes.sort_index ? 1 : -1,
+      );
     const menu = parentCategories.map((item) => {
       return {
         text: item.attributes.name,
         data: `/child-categories/${item.attributes.slug}`,
       };
+    });
+    menu.push({
+      data: Commands.start,
+      text: '↩️ Вернуться в главное меню',
     });
 
     await ctx.reply('Выберите категорию:', getInlineButtons(menu, 1));
@@ -79,6 +85,9 @@ export class CatalogUpdate {
       .filter(
         (category) =>
           category.attributes.parent_category.data.attributes.slug === slug,
+      )
+      .sort((a, b) =>
+        a.attributes.sort_index < b.attributes.sort_index ? 1 : -1,
       );
 
     const menuU = childCategories.map((item) => {
@@ -93,6 +102,15 @@ export class CatalogUpdate {
         },
       ];
     });
+
+    //@ts-ignore
+    menuU.push([
+      {
+        //@ts-ignore
+        callback_data: Commands.start,
+        text: '↩️ Вернуться в главное меню',
+      },
+    ]);
 
     await ctx.reply('Выберите подкатегорию:', {
       reply_markup: {

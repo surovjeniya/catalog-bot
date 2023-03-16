@@ -42,6 +42,7 @@ export class RegisterUpdate {
       ctx.session.create_service_ctx.image
     ) {
       ctx.session.create_service_ctx.description = message;
+      ctx.session.create_service_ctx.description.substring(0, 1000) + '...';
       if (ctx.session.create_service_ctx.description) {
         await ctx.replyWithPhoto(
           ctx.session.create_service_ctx.image[0].file_id,
