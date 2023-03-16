@@ -10,7 +10,6 @@ import { TelegrafContext } from 'src/interface/telegraf.context';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
 import * as htmlParser from 'node-html-markdown';
-import { Markup } from 'telegraf';
 
 @Update()
 export class CreateServiceUpdate {
@@ -61,30 +60,36 @@ export class CreateServiceUpdate {
     if (jwt) {
       await ctx.reply(
         'Использовать профиль Sellershub?',
-        getInlineButtons([
-          {
-            data: '/use-sh-profile/yes',
-            text: 'Да',
-          },
-          {
-            data: '/use-sh-profile/no',
-            text: 'Нет',
-          },
-        ]),
+        getInlineButtons(
+          [
+            {
+              data: '/use-sh-profile/yes',
+              text: 'Да',
+            },
+            {
+              data: '/use-sh-profile/no',
+              text: 'Нет',
+            },
+          ],
+          1,
+        ),
       );
     } else {
       await ctx.reply(
         'Для доступа к услугам с сайта Sellershub необходимо войти.',
-        getInlineButtons([
-          {
-            data: Commands['sign-in'],
-            text: 'Войти?',
-          },
-          {
-            data: 'create-via-bot',
-            text: 'Создать услугу через бот.',
-          },
-        ]),
+        getInlineButtons(
+          [
+            {
+              data: Commands['sign-in'],
+              text: 'Войти?',
+            },
+            {
+              data: 'create-via-bot',
+              text: 'Создать услугу через бот.',
+            },
+          ],
+          1,
+        ),
       );
     }
   }
@@ -120,30 +125,33 @@ export class CreateServiceUpdate {
           );
         } else {
           await ctx.reply(
-            'У вас нет созданных услуг в данной категории на сайте.Создать услугу через бот?',
-            getInlineButtons([
-              {
-                text: 'Да',
-                data: 'create-via-bot',
-              },
-              {
-                text: 'Нет (Возврат в главное меню.)',
-                data: 'start',
-              },
-            ]),
+            'У вас нет созданных услуг в данной категории на сайте.Создать услугу через бот? 🤖',
+            getInlineButtons(
+              [
+                {
+                  text: 'Да ✅',
+                  data: 'create-via-bot',
+                },
+                {
+                  text: 'Нет (Возврат в главное меню.) ↩️',
+                  data: 'start',
+                },
+              ],
+              1,
+            ),
           );
         }
       } else {
         await ctx.reply(
-          'У вас нет созданных услуг на сайте.Создать услугу через бот?',
+          'У вас нет созданных услуг на сайте.Создать услугу через бот? 🤖',
           getInlineButtons(
             [
               {
-                text: 'Да',
+                text: 'Да ✅',
                 data: 'create-via-bot',
               },
               {
-                text: 'Нет (Возврат в главное меню.)',
+                text: 'Нет (Возврат в главное меню.) ↩️',
                 data: 'start',
               },
             ],
@@ -154,17 +162,20 @@ export class CreateServiceUpdate {
     }
     if (decision && decision === 'no') {
       await ctx.reply(
-        'Создать услугу через бот?',
-        getInlineButtons([
-          {
-            text: 'Да',
-            data: 'create-via-bot',
-          },
-          {
-            text: 'Нет (Возврат в главное меню.)',
-            data: 'start',
-          },
-        ]),
+        'Создать услугу через бот? 🤖',
+        getInlineButtons(
+          [
+            {
+              text: 'Да ✅',
+              data: 'create-via-bot',
+            },
+            {
+              text: 'Нет (Возврат в главное меню.) ↩️',
+              data: 'start',
+            },
+          ],
+          1,
+        ),
       );
     }
   }
@@ -172,10 +183,10 @@ export class CreateServiceUpdate {
   @Action('create-via-bot')
   async createServiceViaBot(@Ctx() ctx: TelegrafContext) {
     await ctx.reply(
-      'Для создания услуги необходимо:\n1.Превью услуги.\n2.Текстовое описание',
+      'Для создания услуги необходимо:\n1.Превью услуги. 🌄\n2.Текстовое описание 🔠',
     );
     await ctx.reply(
-      'Загрузите изображение,оно будет отображаться как превью в вашей услуге.',
+      'Загрузите изображение,оно будет отображаться как превью в вашей услуге. 📎',
     );
   }
 
@@ -194,18 +205,22 @@ export class CreateServiceUpdate {
                 inline_keyboard: [
                   [
                     {
-                      text: 'Показать отзывы',
+                      text: 'Показать отзывы 🗣️',
                       callback_data: `/show-more-info/reviews/${serviceId}/${chatId}`,
                     },
+                  ],
+                  [
                     {
-                      text: 'Показать контакты',
-                      callback_data: `/show-more-info/contacts/${serviceId}/${chatId}`,
-                    },
-                    {
-                      text: 'Посмотреть полное описани на сайте',
+                      text: 'Посмотреть полное описани на сайте 🔗',
                       url: `${
                         this.configService.get('API').split('api')[0]
                       }/catalog/profi/${categorySlug}/${serviceId}`,
+                    },
+                  ],
+                  [
+                    {
+                      text: 'Показать контакты 💭',
+                      callback_data: `/show-more-info/contacts/${serviceId}/${chatId}`,
                     },
                   ],
                 ],
@@ -214,11 +229,13 @@ export class CreateServiceUpdate {
                 inline_keyboard: [
                   [
                     {
-                      text: 'Просмотр отзывов не доступен.',
+                      text: 'Просмотр отзывов не доступен. ⛔️',
                       callback_data: `mockData`,
                     },
+                  ],
+                  [
                     {
-                      text: 'Показать контакты',
+                      text: 'Показать контакты 💭',
                       callback_data: `/show-contacts/${chatId}/${ctx.session.from.username}`,
                     },
                   ],
@@ -237,15 +254,19 @@ export class CreateServiceUpdate {
                 inline_keyboard: [
                   [
                     {
-                      text: 'Показать отзывы',
+                      text: 'Показать отзывы 🗣️',
                       callback_data: `/show-more-info/reviews/${serviceId}/${chatId}`,
                     },
+                  ],
+                  [
                     {
-                      text: 'Показать контакты',
+                      text: 'Показать контакты 💭',
                       callback_data: `/show-more-info/contacts/${serviceId}/${chatId}`,
                     },
+                  ],
+                  [
                     {
-                      text: 'Посмотреть полное описани на сайте',
+                      text: 'Посмотреть полное описани на сайте 🔗',
                       url: `${
                         this.configService.get('API').split('api')[0]
                       }/catalog/profi/${categorySlug}/${serviceId}`,
@@ -257,11 +278,13 @@ export class CreateServiceUpdate {
                 inline_keyboard: [
                   [
                     {
-                      text: 'Просмотр отзывов не доступен.',
+                      text: 'Просмотр отзывов не доступен. ⛔️',
                       callback_data: `mockData`,
                     },
+                  ],
+                  [
                     {
-                      text: 'Показать контакты',
+                      text: 'Показать контакты 💭',
                       callback_data: `/show-contacts/${chatId}/${ctx.session.from.username}`,
                     },
                   ],
@@ -276,7 +299,7 @@ export class CreateServiceUpdate {
       getInlineButtons([
         {
           data: 'start',
-          text: 'Вернуться в главное меню.',
+          text: 'Вернуться в главное меню. ↩️',
         },
       ]),
     );
@@ -322,7 +345,7 @@ export class CreateServiceUpdate {
           );
         }
       } else {
-        await ctx.telegram.sendMessage(chatId, 'Отзывы отсутствуют.');
+        await ctx.telegram.sendMessage(chatId, 'Отзывы отсутствуют. 😞');
       }
     }
     if (infoType === 'contacts') {
@@ -383,13 +406,13 @@ export class CreateServiceUpdate {
             inline_keyboard: [
               [
                 {
-                  text: 'Опубликовать',
+                  text: 'Опубликовать ✅',
                   callback_data: 'send-to-chat',
                 },
               ],
               [
                 {
-                  text: 'Нет (Вернуться в главное меню)',
+                  text: 'Нет (Вернуться в главное меню) ↩️',
                   callback_data: Commands.start,
                 },
               ],
@@ -404,13 +427,13 @@ export class CreateServiceUpdate {
           inline_keyboard: [
             [
               {
-                text: 'Опубликовать',
+                text: 'Опубликовать ✅',
                 callback_data: 'send-to-chat',
               },
             ],
             [
               {
-                text: 'Нет (Вернуться в главное меню)',
+                text: 'Нет (Вернуться в главное меню) ↩️',
                 callback_data: Commands.start,
               },
             ],

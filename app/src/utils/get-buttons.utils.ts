@@ -16,14 +16,24 @@ export const getButtons = (
 };
 
 export const getInlineButtons = (
-  items: {
+  items?: {
     text: string;
-    data: string;
+    url?: string;
+    data?: string;
   }[],
   columns?: number,
 ) => {
   return Markup.inlineKeyboard(
-    [...items.map((item) => Markup.button.callback(item.text, item.data))],
+    [
+      ...items.map((item) => {
+        if (item.url) {
+          return Markup.button.url(item.text, item.data);
+        }
+        if (item.data) {
+          return Markup.button.callback(item.text, item.data);
+        }
+      }),
+    ],
     {
       columns,
     },
