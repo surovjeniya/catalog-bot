@@ -3,11 +3,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { AppUpdate } from './app.update';
 import { getTelegrafConfig } from './config/telegraf.config';
+import { AiUpdate } from './update/ai.update';
 import { CatalogUpdate } from './update/catalog.update';
+import { ChatsUpdate } from './update/chats.update';
 import { CreateServiceUpdate } from './update/create-service.update';
 import { PersonalUpdate } from './update/personal.update';
 import { RegisterUpdate } from './update/register.update';
 import { SignInUpdate } from './update/sign-in.update';
+import { SupportUpdate } from './update/support.update';
 import { SellersHubBotApi } from './utils/api-class.utils';
 
 @Module({
@@ -30,6 +33,9 @@ import { SellersHubBotApi } from './utils/api-class.utils';
     SignInUpdate,
     SellersHubBotApi,
     CreateServiceUpdate,
+    SupportUpdate,
+    ChatsUpdate,
+    AiUpdate,
   ],
 })
 export class AppModule {}

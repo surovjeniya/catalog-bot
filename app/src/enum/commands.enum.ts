@@ -7,4 +7,7 @@ export enum Commands {
   'create-service' = 'createservice',
   signout = 'signout',
   message = 'message',
+  support = 'support',
+  chats = 'chats',
+  ai = 'ai',
 }
