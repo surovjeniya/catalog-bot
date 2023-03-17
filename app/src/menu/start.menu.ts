@@ -11,6 +11,10 @@ export const startMenu = (ctx: TelegrafContext) => {
           text: '🚚 Индивидуальный заказ',
           callback_data: Commands.personal,
         },
+        {
+          text: '➕ Разместить услугу',
+          callback_data: Commands['create-service'],
+        },
       ],
       [
         {
@@ -20,20 +24,14 @@ export const startMenu = (ctx: TelegrafContext) => {
       ],
       [
         {
-          text: '➕ Разместить услугу',
-          callback_data: Commands['create-service'],
+          text: '🤖 AI-копирайтер',
+          callback_data: Commands.ai,
         },
       ],
       [
         {
           text: '🤝 Поддержка',
           callback_data: Commands.support,
-        },
-      ],
-      [
-        {
-          text: '🤖 AI-копирайтер',
-          callback_data: Commands.ai,
         },
       ],
     ];
@@ -54,6 +52,10 @@ export const startMenu = (ctx: TelegrafContext) => {
           text: '🚚 Индивидуальный заказ',
           callback_data: Commands.personal,
         },
+        {
+          text: '➕ Разместить услугу',
+          callback_data: Commands['create-service'],
+        },
       ],
       [
         {
@@ -63,20 +65,14 @@ export const startMenu = (ctx: TelegrafContext) => {
       ],
       [
         {
-          text: '➕ Разместить услугу',
-          callback_data: Commands['create-service'],
+          text: '🤖 AI-копирайтер',
+          callback_data: Commands.ai,
         },
       ],
       [
         {
           text: '🤝 Поддержка',
           callback_data: Commands.support,
-        },
-      ],
-      [
-        {
-          text: '🤖 AI-копирайтер',
-          callback_data: Commands.ai,
         },
       ],
     ];

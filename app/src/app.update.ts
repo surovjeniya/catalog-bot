@@ -23,12 +23,14 @@ export class AppUpdate {
     ctx.session.create_service_ctx = null;
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
-    );
-    await ctx.replyWithHTML(startMessage(ctx), {
-      reply_markup: {
-        inline_keyboard: startMenu(ctx),
+      {
+        caption: startMessage(ctx),
+        reply_markup: {
+          inline_keyboard: startMenu(ctx),
+        },
+        parse_mode: 'HTML',
       },
-    });
+    );
   }
 
   @Command(Commands.signout)
@@ -61,11 +63,13 @@ export class AppUpdate {
     ctx.session.create_service_ctx = null;
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
-    );
-    await ctx.replyWithHTML(startMessage(ctx), {
-      reply_markup: {
-        inline_keyboard: startMenu(ctx),
+      {
+        caption: startMessage(ctx),
+        reply_markup: {
+          inline_keyboard: startMenu(ctx),
+        },
+        parse_mode: 'HTML',
       },
-    });
+    );
   }
 }

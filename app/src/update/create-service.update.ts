@@ -193,11 +193,15 @@ export class CreateServiceUpdate {
   @Action('send-to-chat')
   async sendMessageToChat(@Ctx() ctx: TelegrafContext) {
     const { serviceId, chatId, categorySlug } = ctx.session.create_service_ctx;
-    const {
-      data: {
-        attributes: { review },
-      },
-    } = await this.sellersHubBotApi.getService(+serviceId, ctx);
+    let review = {
+      data: [],
+    };
+
+    if (serviceId) {
+      const service = await this.sellersHubBotApi.getService(+serviceId, ctx);
+      review = service.data.attributes.review;
+    }
+
     if (ctx.session.create_service_ctx.image) {
       await ctx.telegram.sendPhoto(
         ctx.session.create_service_ctx.chatId,
