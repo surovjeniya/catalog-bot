@@ -346,7 +346,8 @@ export class CreateServiceUpdate {
       if (reviews.length) {
         for (let i = 0; i < reviews.length; i++) {
           await ctx.telegram.sendMessage(
-            chatId,
+            //@ts-ignore
+            ctx.update.callback_query.from.id,
             reviews[i].attributes.description,
             {
               reply_markup: {
