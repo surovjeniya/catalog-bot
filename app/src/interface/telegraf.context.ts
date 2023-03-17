@@ -14,6 +14,7 @@ export interface TelegrafContext extends Context {
     input: string;
   };
   session: {
+    prev_message: number;
     from: {
       id: number;
       is_bot: boolean;

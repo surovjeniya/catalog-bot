@@ -13,7 +13,18 @@ export class SignInUpdate {
   async signInAction(@Ctx() ctx: TelegrafContext) {
     ctx.session.action = Actions['sign-in'];
     this.clearLoginData(ctx);
-    await ctx.reply('Введите email: 👇');
+    await ctx.reply('Введите email: 👇', {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: '↩️ Вернуться в главное меню',
+              callback_data: Commands.start,
+            },
+          ],
+        ],
+      },
+    });
   }
 
   @Action('/sign-in/continue')

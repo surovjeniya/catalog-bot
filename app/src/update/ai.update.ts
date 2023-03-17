@@ -11,13 +11,13 @@ export class AiUpdate {
       {
         parse_mode: 'HTML',
         caption: {
-          text: `Рады приветствовать вас сервисе AI-копирайтинга от <a href="https://sellershub.ru/?utm_medium=smm&utm_source=tg&utm_campaign=bot_ai&utm_term=bot_button&utm_content=1">Sellershub.ru</a>\nСервис использует искусственный интеллект для написания SEO-текста для описания товара используя ваши ключи для товара.\nМы обучаем нашу модель на базе товаров Wildberries.`,
+          text: `AI-копирайтер использует искусственный интеллект и создаёт SEO-тексты для описания товара, использую ваши ключевые слова.Мы обучаем модель на базе товаров Wildberries.`,
         },
         reply_markup: {
           inline_keyboard: [
             [
               {
-                text: 'Хочу попробовать!',
+                text: 'Получить уникальное описание',
                 url: 'https://t.me/ai_copywriting_bot',
               },
               {

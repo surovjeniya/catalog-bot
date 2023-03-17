@@ -7,19 +7,11 @@ import { TelegrafContext } from 'src/interface/telegraf.context';
 export class PersonalUpdate {
   constructor() {}
 
-  @Command(Commands.personal)
-  async personalCommand(@Ctx() ctx: TelegrafContext) {
-    ctx.session.action = Actions['personal-specialist'];
-    await ctx.replyWithHTML(
-      '✍️ Для создания индивидуального заказа отправьте техническое задание в нашу <a href="https://t.me/sellershubanastasiya">поддержку</a>.Если у вас нет технического задания, то можете так же написать <a href="https://t.me/sellershubanastasiya">нам</a> и мы поможем его создать.',
-    );
-  }
-
   @Action(Commands.personal)
   async personalAction(@Ctx() ctx: TelegrafContext) {
     ctx.session.action = Actions['personal-specialist'];
     await ctx.replyWithHTML(
-      '✍️ Для создания индивидуального заказа отправьте техническое задание в нашу <a href="https://t.me/sellershubanastasiya">поддержку</a>.Если у вас нет технического задания, то можете так же написать <a href="https://t.me/sellershubanastasiya">нам</a> и мы поможем его создать.',
+      `Для создания индивидуального заказа необходимо отправить техническое задание в нашу <a href="https://t.me/sellershubanastasiya">поддержку</a>. Если у вас нет технического задания, <a href="https://t.me/sellershubanastasiya">мы</a> поможем его составить.`,
       {
         reply_markup: {
           inline_keyboard: [

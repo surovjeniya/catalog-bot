@@ -34,19 +34,28 @@ export class CreateServiceUpdate {
   async createServiceAction(@Ctx() ctx: TelegrafContext) {
     ctx.session.action = Actions['create-service'];
     this.clearServiceData(ctx);
-    ctx.reply(
-      'Выберите категорию',
-      getInlineButtons([
-        {
-          data: `/create-service/dizajnery/${DESIGNER_CHAT}`,
-          text: 'Дизайнеры',
-        },
-        {
-          data: `/create-service/menedzhery/${PERSONAL_OFFICE_SPECIALIST}`,
-          text: 'Менеджеры ЛК',
-        },
-      ]),
-    );
+    ctx.reply('Выберите категорию', {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              callback_data: `/create-service/dizajnery/${DESIGNER_CHAT}`,
+              text: 'Дизайнеры',
+            },
+            {
+              callback_data: `/create-service/menedzhery/${PERSONAL_OFFICE_SPECIALIST}`,
+              text: 'Менеджеры ЛК',
+            },
+          ],
+          [
+            {
+              text: '↩️ Вернуться в меню',
+              callback_data: Commands.start,
+            },
+          ],
+        ],
+      },
+    });
   }
 
   @Action(/(?<=create-service\/).*/)

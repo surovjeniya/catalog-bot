@@ -8,29 +8,29 @@ export const startMenu = (ctx: TelegrafContext) => {
     menu = [
       [
         {
-          text: '🚚 Индивидуальный заказ',
+          text: 'Создать заказ',
           callback_data: Commands.personal,
         },
         {
-          text: '➕ Разместить услугу',
+          text: 'Разместить услугу',
           callback_data: Commands['create-service'],
         },
       ],
       [
         {
-          text: '🗃️ Каталог',
+          text: 'Открыть каталог Sellershub',
           callback_data: Commands.catalog,
         },
       ],
       [
         {
-          text: '🤖 AI-копирайтер',
+          text: '🤖 Использовать AI-копирайтер',
           callback_data: Commands.ai,
         },
       ],
       [
         {
-          text: '🤝 Поддержка',
+          text: '🤝 Обратиться в поддержку',
           callback_data: Commands.support,
         },
       ],
@@ -39,39 +39,39 @@ export const startMenu = (ctx: TelegrafContext) => {
     menu = [
       [
         {
-          text: '🎫 Регистрация',
+          text: 'Зарегестрироваться',
           callback_data: Commands.register,
         },
         {
-          text: '🚪 Вход',
+          text: 'Войти в аккаунт Sellershub',
           callback_data: Commands['sign-in'],
         },
       ],
       [
         {
-          text: '🚚 Индивидуальный заказ',
+          text: 'Создать заказ',
           callback_data: Commands.personal,
         },
         {
-          text: '➕ Разместить услугу',
+          text: 'Разместить услугу',
           callback_data: Commands['create-service'],
         },
       ],
       [
         {
-          text: '🗃️ Каталог',
+          text: 'Открыть каталог Sellershub',
           callback_data: Commands.catalog,
         },
       ],
       [
         {
-          text: '🤖 AI-копирайтер',
+          text: '🤖 Использовать AI-копирайтер',
           callback_data: Commands.ai,
         },
       ],
       [
         {
-          text: '🤝 Поддержка',
+          text: '🤝 Обратиться в поддержку',
           callback_data: Commands.support,
         },
       ],
