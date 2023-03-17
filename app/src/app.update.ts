@@ -20,7 +20,14 @@ export class AppUpdate {
       username,
     };
     ctx.session.action = null;
-    ctx.session.create_service_ctx = null;
+    ctx.session.create_service_ctx = {
+      chatId: null,
+      description: null,
+      image: null,
+      categorySlug: null,
+      price: null,
+      serviceId: null,
+    };
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
       {
@@ -60,7 +67,14 @@ export class AppUpdate {
       username,
     };
     ctx.session.action = null;
-    ctx.session.create_service_ctx = null;
+    ctx.session.create_service_ctx = {
+      chatId: null,
+      description: null,
+      image: null,
+      categorySlug: null,
+      price: null,
+      serviceId: null,
+    };
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
       {

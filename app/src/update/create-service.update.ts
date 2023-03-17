@@ -50,7 +50,7 @@ export class CreateServiceUpdate {
           [
             {
               text: '↩️ Вернуться в меню',
-              callback_data: Commands.start,
+              callback_data: Commands.menu,
             },
           ],
         ],
@@ -143,7 +143,7 @@ export class CreateServiceUpdate {
                 },
                 {
                   text: 'Нет (Возврат в главное меню.) ↩️',
-                  data: 'start',
+                  data: Commands.menu,
                 },
               ],
               1,
@@ -161,7 +161,7 @@ export class CreateServiceUpdate {
               },
               {
                 text: 'Нет (Возврат в главное меню.) ↩️',
-                data: 'start',
+                data: Commands.menu,
               },
             ],
             1,
@@ -180,7 +180,7 @@ export class CreateServiceUpdate {
             },
             {
               text: 'Нет (Возврат в главное меню.) ↩️',
-              data: 'start',
+              data: Commands.menu,
             },
           ],
           1,
@@ -316,7 +316,7 @@ export class CreateServiceUpdate {
       'Услуга опубликована.',
       getInlineButtons([
         {
-          data: 'start',
+          data: Commands.menu,
           text: 'Вернуться в главное меню. ↩️',
         },
       ]),
@@ -327,9 +327,9 @@ export class CreateServiceUpdate {
   async sendContacts(@Ctx() ctx: TelegrafContext) {
     const mathArr = ctx.match.input.split('/');
     const username = mathArr[mathArr.length - 1];
-    const chatId = mathArr[mathArr.length - 2];
     await ctx.telegram.sendMessage(
-      chatId,
+      //@ts-ignore
+      ctx.update.callback_query.from.id,
       `telegram: ${'https://t.me/' + username}`,
     );
   }
@@ -386,7 +386,12 @@ export class CreateServiceUpdate {
       }\nwhatsapp: ${
         contact_whatsup ? contact_whatsup : 'Отсутствует'
       }\nТелефон: ${phone_number ? phone_number : 'Отсутствует'}\n`;
-      await ctx.telegram.sendMessage(chatId, contactsMessage);
+
+      await ctx.telegram.sendMessage(
+        //@ts-ignore
+        ctx.update.callback_query.from.id,
+        contactsMessage,
+      );
     }
   }
 
@@ -431,7 +436,7 @@ export class CreateServiceUpdate {
               [
                 {
                   text: 'Нет (Вернуться в главное меню) ↩️',
-                  callback_data: Commands.start,
+                  callback_data: Commands.menu,
                 },
               ],
             ],
@@ -452,7 +457,7 @@ export class CreateServiceUpdate {
             [
               {
                 text: 'Нет (Вернуться в главное меню) ↩️',
-                callback_data: Commands.start,
+                callback_data: Commands.menu,
               },
             ],
           ],

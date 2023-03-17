@@ -41,7 +41,7 @@ export class SupportUpdate {
             [
               {
                 text: '↩️ Вернуться в меню',
-                callback_data: 'start',
+                callback_data: Commands.menu,
               },
               {
                 text: '💬 Наши каналы и чаты',

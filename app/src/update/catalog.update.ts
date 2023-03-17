@@ -55,7 +55,7 @@ export class CatalogUpdate {
       };
     });
     menu.push({
-      data: Commands.start,
+      data: Commands.menu,
       text: '↩️ Вернуться в главное меню',
     });
 
@@ -107,7 +107,7 @@ export class CatalogUpdate {
     menuU.push([
       {
         //@ts-ignore
-        callback_data: Commands.start,
+        callback_data: Commands.menu,
         text: '↩️ Вернуться в главное меню',
       },
     ]);

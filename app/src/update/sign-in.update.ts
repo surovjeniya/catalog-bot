@@ -19,7 +19,7 @@ export class SignInUpdate {
           [
             {
               text: '↩️ Вернуться в главное меню',
-              callback_data: Commands.start,
+              callback_data: Commands.menu,
             },
           ],
         ],
@@ -43,7 +43,7 @@ export class SignInUpdate {
         'Вы вошли.',
         getInlineButtons([
           {
-            data: 'start',
+            data: Commands.menu,
             text: 'Перейти в главное меню.',
           },
         ]),

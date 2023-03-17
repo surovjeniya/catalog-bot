@@ -7,6 +7,7 @@ import { AiUpdate } from './update/ai.update';
 import { CatalogUpdate } from './update/catalog.update';
 import { ChatsUpdate } from './update/chats.update';
 import { CreateServiceUpdate } from './update/create-service.update';
+import { MenuUpdate } from './update/menu.update';
 import { PersonalUpdate } from './update/personal.update';
 import { RegisterUpdate } from './update/register.update';
 import { SignInUpdate } from './update/sign-in.update';
@@ -36,6 +37,7 @@ import { SellersHubBotApi } from './utils/api-class.utils';
     SupportUpdate,
     ChatsUpdate,
     AiUpdate,
+    MenuUpdate,
   ],
 })
 export class AppModule {}
