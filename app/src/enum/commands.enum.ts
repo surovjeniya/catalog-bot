@@ -10,4 +10,5 @@ export enum Commands {
   support = 'support',
   chats = 'chats',
   ai = 'ai',
+  menu = 'menu',
 }

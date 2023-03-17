@@ -15,7 +15,7 @@ export class PersonalUpdate {
       {
         reply_markup: {
           inline_keyboard: [
-            [{ text: '↩️ Вернуться в меню', callback_data: Commands.start }],
+            [{ text: '↩️ Вернуться в меню', callback_data: Commands.menu }],
           ],
         },
       },

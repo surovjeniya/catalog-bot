@@ -25,7 +25,7 @@ export class RegisterUpdate {
             [
               {
                 text: '↩️ Вернуться в главное меню',
-                callback_data: Commands.start,
+                callback_data: Commands.menu,
               },
             ],
           ],
@@ -70,7 +70,7 @@ export class RegisterUpdate {
               text: 'Да',
             },
             {
-              data: 'start',
+              data: Commands.menu,
               text: 'Нет (Вернуться в главное меню)',
             },
           ]),
@@ -99,7 +99,7 @@ export class RegisterUpdate {
                 },
                 {
                   text: 'Нет',
-                  data: 'start',
+                  data: Commands.menu,
                 },
               ],
               1,
@@ -134,7 +134,7 @@ export class RegisterUpdate {
                 text: 'Да',
               },
               {
-                data: 'start',
+                data: Commands.menu,
                 text: 'Нет',
               },
             ],

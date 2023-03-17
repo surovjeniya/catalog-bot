@@ -46,7 +46,7 @@ export class ChatsUpdate {
             [
               {
                 text: '↩️ Вернуться в меню',
-                callback_data: 'start',
+                callback_data: Commands.menu,
               },
               {
                 text: '🤝 Поддержка',

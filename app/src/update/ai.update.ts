@@ -22,7 +22,7 @@ export class AiUpdate {
               },
               {
                 text: 'Вернуться в меню.',
-                callback_data: Commands.start,
+                callback_data: Commands.menu,
               },
             ],
           ],
