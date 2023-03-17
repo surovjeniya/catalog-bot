@@ -339,32 +339,40 @@ export class CreateServiceUpdate {
     const matchArr = ctx.match.input.split('/');
     const infoType = matchArr[matchArr.length - 3];
     const serviceId = matchArr[matchArr.length - 2];
-    const chatId = matchArr[matchArr.length - 1];
     const service = await this.sellersHubBotApi.getService(+serviceId, ctx);
     if (infoType === 'reviews') {
       const reviews = service.data.attributes.review.data;
       if (reviews.length) {
-        for (let i = 0; i < reviews.length; i++) {
-          await ctx.telegram.sendMessage(
-            //@ts-ignore
-            ctx.update.callback_query.from.id,
-            reviews[i].attributes.description,
-            {
-              reply_markup: {
-                inline_keyboard: [
-                  [
-                    {
-                      text: `${'⭐'.repeat(reviews[i].attributes.rating)}`,
-                      callback_data: 'mockRating',
+        const categorySlug =
+          service.data.attributes.service_categories.data[0].attributes.slug;
+        const serviceUrl = `${
+          this.configService.get('API').split('api')[0]
+        }catalog/profi/${categorySlug}/${serviceId}?telegram-reviews=true`;
+        await ctx.telegram.sendMessage(
+          //@ts-ignore
+          ctx.update.callback_query.from.id,
+          'Для просмотра отзывов нажмите кнопку ниже 👇',
+          {
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  {
+                    text: 'Посмотреть отзывы',
+                    web_app: {
+                      url: serviceUrl,
                     },
-                  ],
+                  },
                 ],
-              },
+              ],
             },
-          );
-        }
+          },
+        );
       } else {
-        await ctx.telegram.sendMessage(chatId, 'Отзывы отсутствуют. 😞');
+        await ctx.telegram.sendMessage(
+          //@ts-ignore
+          ctx.update.callback_query.from.id,
+          'Отзывы отсутствуют. 😞',
+        );
       }
     }
     if (infoType === 'contacts') {
