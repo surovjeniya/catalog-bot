@@ -42,6 +42,8 @@ export class CreateServiceUpdate {
               callback_data: `/create-service/dizajnery/${DESIGNER_CHAT}`,
               text: 'Инфорграфика для марткеплейсов от Селлерсхаб',
             },
+          ],
+          [
             {
               callback_data: `/create-service/menedzhery/${PERSONAL_OFFICE_SPECIALIST}`,
               text: 'Менеджеры ЛК от Селлерсхаб',
