@@ -20,8 +20,10 @@ export class AiUpdate {
                 text: 'Получить уникальное описание',
                 url: 'https://t.me/ai_copywriting_bot',
               },
+            ],
+            [
               {
-                text: 'Вернуться в меню.',
+                text: '↩️ Вернуться в меню.',
                 callback_data: Commands.menu,
               },
             ],
