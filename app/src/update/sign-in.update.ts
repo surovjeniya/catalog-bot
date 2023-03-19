@@ -44,7 +44,7 @@ export class SignInUpdate {
         getInlineButtons([
           {
             data: Commands.menu,
-            text: 'Перейти в главное меню.',
+            text: '↩️ Вернуться в главное меню.',
           },
         ]),
       );

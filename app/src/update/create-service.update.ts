@@ -350,6 +350,7 @@ export class CreateServiceUpdate {
         const serviceUrl = `${
           this.configService.get('API').split('api')[0]
         }catalog/profi/${categorySlug}/${serviceId}?telegram-reviews=true`;
+
         await ctx.telegram.sendMessage(
           //@ts-ignore
           ctx.update.callback_query.from.id,
