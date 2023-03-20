@@ -227,6 +227,7 @@ export class SellersHubBotApi {
           username,
           email,
           password,
+          registered_from_bot: true,
         },
       );
       return registerData;
