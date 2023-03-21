@@ -161,6 +161,12 @@ export class RegisterUpdate {
       this.clearRegisterData(ctx);
       await ctx.reply(
         'Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения.',
+        getInlineButtons([
+          {
+            text: '↩️ Вернуться в главное меню.',
+            data: Commands.menu,
+          },
+        ]),
       );
     }
   }
