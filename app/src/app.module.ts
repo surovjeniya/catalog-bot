@@ -14,9 +14,18 @@ import { SignInUpdate } from './update/sign-in.update';
 import { SupportUpdate } from './update/support.update';
 import { SellersHubBotApi } from './utils/api-class.utils';
 import * as Joi from 'joi';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { getTypeOrmConfig } from './config/typeorm.config';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
+    UserModule,
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        getTypeOrmConfig(configService),
+    }),
     TelegrafModule.forRootAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) =>
@@ -30,6 +39,11 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         TOKEN: Joi.string().required(),
         API: Joi.string().required(),
+        POSTGRES_DB: Joi.string().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
       }),
     }),
   ],
