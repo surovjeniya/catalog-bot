@@ -17,17 +17,17 @@ export class UserEntity {
   @Column()
   is_bot: boolean;
 
-  @Column()
-  first_name: string;
+  @Column({ nullable: true })
+  first_name?: string;
 
-  @Column()
-  last_name: string;
+  @Column({ nullable: true })
+  last_name?: string;
 
-  @Column()
-  username: string;
+  @Column({ nullable: true })
+  username?: string;
 
-  @Column()
-  language_code: string;
+  @Column({ nullable: true })
+  language_code?: string;
 
   @CreateDateColumn()
   createdAt: Date;
