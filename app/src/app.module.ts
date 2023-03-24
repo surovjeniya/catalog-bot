@@ -13,6 +13,7 @@ import { RegisterUpdate } from './update/register.update';
 import { SignInUpdate } from './update/sign-in.update';
 import { SupportUpdate } from './update/support.update';
 import { SellersHubBotApi } from './utils/api-class.utils';
+import * as Joi from 'joi';
 
 @Module({
   imports: [
@@ -22,8 +23,14 @@ import { SellersHubBotApi } from './utils/api-class.utils';
         getTelegrafConfig(configService),
     }),
     ConfigModule.forRoot({
-      envFilePath: './.env',
+      envFilePath: (process.env.NODE_ENV = 'development'
+        ? './envs/.development.env'
+        : './envs/.production.env'),
       isGlobal: true,
+      validationSchema: Joi.object({
+        TOKEN: Joi.string().required(),
+        API: Joi.string().required(),
+      }),
     }),
   ],
   providers: [
