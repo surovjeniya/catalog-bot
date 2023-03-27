@@ -22,6 +22,8 @@ services:
       - catalog-bot-network
     depends_on:
       - app_db
+    volumes:
+      - /usr/src/app/node_modules
   
   app_db:
     image: postgres:15-alpine
