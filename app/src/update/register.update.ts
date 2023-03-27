@@ -2,6 +2,7 @@ import { Action, Ctx, Message, On, Update } from 'nestjs-telegraf';
 import { Actions } from 'src/enum/actions.enum';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
+import { LoggerService } from 'src/logger/logger.service';
 import {
   getSignInCredentials as getSignInCredentials,
   INVALID_EMAIL,
@@ -11,10 +12,19 @@ import { getInlineButtons } from 'src/utils/get-buttons.utils';
 
 @Update()
 export class RegisterUpdate {
-  constructor(private readonly sellersBotApi: SellersHubBotApi) {}
+  constructor(
+    private readonly sellersBotApi: SellersHubBotApi,
+    private readonly loggerService: LoggerService,
+  ) {}
 
   @Action(Commands.register)
   async registerAction(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands.register,
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     ctx.session.action = Actions.register;
     this.clearRegisterData(ctx);
     await ctx.replyWithHTML(

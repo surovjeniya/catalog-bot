@@ -5,10 +5,14 @@ import { getInlineButtons } from './utils/get-buttons.utils';
 import { startMessage } from './message';
 import { startMenu } from './menu/start.menu';
 import { UserService } from './user/user.service';
+import { LoggerService } from './logger/logger.service';
 
 @Update()
 export class AppUpdate {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly loggerService: LoggerService,
+  ) {}
   @Action(Commands.start)
   async startAction(@Ctx() ctx: TelegrafContext) {
     const { first_name, id, is_bot, language_code, last_name, username } =
@@ -44,6 +48,12 @@ export class AppUpdate {
 
   @Command(Commands.signout)
   async singOut(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands.signout,
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     ctx.session.jwt = null;
     await ctx.reply(
       'Вы вышли.',

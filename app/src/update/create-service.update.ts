@@ -1,21 +1,19 @@
 import { ConfigService } from '@nestjs/config';
 import { Action, Ctx, Update } from 'nestjs-telegraf';
-import {
-  DESIGNER_CHAT,
-  PERSONAL_OFFICE_SPECIALIST,
-} from 'src/constant/chat-id.constant';
 import { Actions } from 'src/enum/actions.enum';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
 import * as htmlParser from 'node-html-markdown';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Update()
 export class CreateServiceUpdate {
   constructor(
     private readonly sellersHubBotApi: SellersHubBotApi,
     private readonly configService: ConfigService,
+    private readonly loggerService: LoggerService,
   ) {}
 
   clearServiceData(ctx: TelegrafContext) {
@@ -32,6 +30,12 @@ export class CreateServiceUpdate {
 
   @Action(Commands['create-service'])
   async createServiceAction(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands['create-service'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     ctx.session.action = Actions['create-service'];
     this.clearServiceData(ctx);
     ctx.reply('Выберите чат для публикации вашей услуги.', {
@@ -39,13 +43,17 @@ export class CreateServiceUpdate {
         inline_keyboard: [
           [
             {
-              callback_data: `/create-service/dizajnery/${DESIGNER_CHAT}`,
+              callback_data: `/create-service/dizajnery/${this.configService.get(
+                'INFOGRAPHIC_CHAT_ID',
+              )}`,
               text: 'Инфорграфика для марткеплейсов от Селлерсхаб',
             },
           ],
           [
             {
-              callback_data: `/create-service/menedzhery/${PERSONAL_OFFICE_SPECIALIST}`,
+              callback_data: `/create-service/menedzhery/${this.configService.get(
+                'MANAGER_CHAT_ID',
+              )}`,
               text: 'Менеджеры ЛК от Селлерсхаб',
             },
           ],
@@ -191,8 +199,14 @@ export class CreateServiceUpdate {
     }
   }
 
-  @Action('create-via-bot')
+  @Action(Commands['create-via-bot'])
   async createServiceViaBot(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands['create-via-bot'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     await ctx.reply(
       'Для создания услуги необходимо:\n1.Превью услуги. 🌄\n2.Текстовое описание 🔠',
     );
@@ -409,6 +423,12 @@ export class CreateServiceUpdate {
 
   @Action(/(?<=create-via-site\/).*/)
   async createServiceViaSite(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands['create-via-site'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     const matchArr = ctx.match.input.split('/');
     const id = matchArr[matchArr.length - 1];
     const service = await this.sellersHubBotApi.getService(+id, ctx);

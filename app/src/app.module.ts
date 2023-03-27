@@ -17,10 +17,12 @@ import * as Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getTypeOrmConfig } from './config/typeorm.config';
 import { UserModule } from './user/user.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
     UserModule,
+    LoggerModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>

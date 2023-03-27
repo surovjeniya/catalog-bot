@@ -2,6 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { Action, Command, Ctx, Update } from 'nestjs-telegraf';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
+import { LoggerService } from 'src/logger/logger.service';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from '../utils/get-buttons.utils';
 
@@ -10,9 +11,16 @@ export class CatalogUpdate {
   constructor(
     private readonly configService: ConfigService,
     private readonly api: SellersHubBotApi,
+    private readonly loggerService: LoggerService,
   ) {}
   @Command(Commands.catalog)
   async catalogCommand(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands.catalog,
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     const categories = await this.api.getCategories(ctx);
     const parentCategories = categories.data.filter(
       (category) => category.attributes.parent_category.data === null,
@@ -42,6 +50,12 @@ export class CatalogUpdate {
 
   @Action(Commands.catalog)
   async catalogAction(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands.catalog,
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     const categories = await this.api.getCategories(ctx);
     const parentCategories = categories.data
       .filter((category) => category.attributes.parent_category.data === null)

@@ -1,13 +1,21 @@
 import { Action, Ctx, Update } from 'nestjs-telegraf';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Update()
 export class ChatsUpdate {
-  constructor() {}
+  constructor(private readonly loggerService: LoggerService) {}
 
   @Action(Commands.chats)
   async getChats(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands.chats,
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
+
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/photo_2023_03_16_15_36_19_a526720194.jpg?updated_at=2023-03-16T12:36:32.471Z',
       {

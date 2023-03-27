@@ -11,4 +11,6 @@ export enum Commands {
   chats = 'chats',
   ai = 'ai',
   menu = 'menu',
+  'create-via-bot' = 'create-via-bot',
+  'create-via-site' = 'create-via-site',
 }
