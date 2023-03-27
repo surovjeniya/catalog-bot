@@ -22,15 +22,22 @@ export class CatalogUpdate {
       username: ctx.from.username,
     });
     const categories = await this.api.getCategories(ctx);
-    const parentCategories = categories.data.filter(
-      (category) => category.attributes.parent_category.data === null,
-    );
+    const parentCategories = categories.data
+      .filter((category) => category.attributes.parent_category.data === null)
+      .sort((a, b) =>
+        a.attributes.sort_index < b.attributes.sort_index ? 1 : -1,
+      );
     const menu = parentCategories.map((item) => {
       return {
         text: item.attributes.name,
         data: `/child-categories/${item.attributes.slug}`,
       };
     });
+    menu.push({
+      data: Commands.menu,
+      text: '↩️ Вернуться в главное меню',
+    });
+
     await ctx.reply('Выберите категорию:', getInlineButtons(menu, 1));
     // await ctx.reply('Для просмотра каталога нажмите кнопку ниже 👇', {
     //   reply_markup: {

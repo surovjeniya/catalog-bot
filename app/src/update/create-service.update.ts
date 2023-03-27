@@ -162,11 +162,11 @@ export class CreateServiceUpdate {
         }
       } else {
         await ctx.reply(
-          'У вас нет созданных услуг на сайте.Создать услугу через бот? 🤖',
+          'У вас нет созданных услуг на сайте.Создать услугу через бот?',
           getInlineButtons(
             [
               {
-                text: 'Да ✅',
+                text: 'Да',
                 data: 'create-via-bot',
               },
               {
@@ -181,11 +181,11 @@ export class CreateServiceUpdate {
     }
     if (decision && decision === 'no') {
       await ctx.reply(
-        'Создать услугу через бот? 🤖',
+        'Создать услугу через бот?',
         getInlineButtons(
           [
             {
-              text: 'Да ✅',
+              text: 'Да',
               data: 'create-via-bot',
             },
             {
