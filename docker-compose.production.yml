@@ -9,7 +9,7 @@ services:
     container_name: catalog-bot-app
     environment:
       - NODE_ENV=production
-      - TOKEN=5831017982:AAE8S2FIZkHBWq90_R2ZVbHxnsalSZfTHzc
+      - TOKEN=6181790969:AAGM9HbjBg7SBhi5YX-OTZC9jd6XPf2Uz04
       - API=https://sellershub.ru/api
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
