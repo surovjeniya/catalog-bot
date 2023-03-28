@@ -50,7 +50,9 @@ export class RegisterUpdate {
       ctx.session.create_service_ctx.image = photo;
     }
     if (ctx.session.create_service_ctx.image) {
-      ctx.reply('Отлично!Теперь введите описание вашей услуги.');
+      ctx.replyWithHTML(
+        'Отлично!Теперь введите описание вашей услуги.(<b>не более 1000 символов</b>)',
+      );
     }
   }
 
