@@ -16,7 +16,6 @@ export class LoggerService {
   async create(dto: CreateLogDto): Promise<LoggerEntity> {
     const log = this.loggerRepository.create({
       ...dto,
-      day: new Date().toDateString(),
     });
     return await this.loggerRepository.save(log);
   }
@@ -28,20 +27,22 @@ export class LoggerService {
     }
   }
 
-  async updateLog(updateData: {
+  async updateLog(logData: {
     action: Commands;
-    day: string;
     telegram_id: number;
     username: string;
+    day?: string;
   }) {
-    const { action, day, telegram_id, username } = updateData;
+    const { action, telegram_id, username } = logData;
     const log = await this.loggerRepository.findOne({
       where: {
         action,
-        day,
         telegram_id,
+        username,
+        day: new Date().toDateString(),
       },
     });
+
     if (log) {
       return await this.update(log.id, { count: log.count + 1 });
     } else {

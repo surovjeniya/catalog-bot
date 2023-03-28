@@ -17,7 +17,6 @@ export class CatalogUpdate {
   async catalogCommand(@Ctx() ctx: TelegrafContext) {
     await this.loggerService.updateLog({
       action: Commands.catalog,
-      day: new Date().toDateString(),
       telegram_id: ctx.from.id,
       username: ctx.from.username,
     });
@@ -59,7 +58,6 @@ export class CatalogUpdate {
   async catalogAction(@Ctx() ctx: TelegrafContext) {
     await this.loggerService.updateLog({
       action: Commands.catalog,
-      day: new Date().toDateString(),
       telegram_id: ctx.from.id,
       username: ctx.from.username,
     });
