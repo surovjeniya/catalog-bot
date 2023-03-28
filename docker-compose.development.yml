@@ -4,12 +4,8 @@ services:
     build:
       target: development
     command: npm run start:dev
-    environment:
-      - NODE_ENV=development
-      - TOKEN=5831017982:AAE8S2FIZkHBWq90_R2ZVbHxnsalSZfTHzc
-      - API=https://dev.sellershub.ru/api
-      - INFOGRAPHIC_CHAT_ID=-1001920497909
-      - MANAGER_CHAT_ID=-1001719042826
+    env_file:
+      - ./app/envs/.development.env
     volumes:
       - ./app:/usr/src/app
   app_db:

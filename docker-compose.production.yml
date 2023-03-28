@@ -7,17 +7,8 @@ services:
       target: production
     restart: unless-stopped
     container_name: catalog-bot-app
-    environment:
-      - NODE_ENV=production
-      - TOKEN=6181790969:AAGM9HbjBg7SBhi5YX-OTZC9jd6XPf2Uz04
-      - API=https://sellershub.ru/api
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=app_db
-      - POSTGRES_PORT=5432
-      - INFOGRAPHIC_CHAT_ID=-1001543334271
-      - MANAGER_CHAT_ID=-1001736129560
+    env_file:
+      - ./app/envs/.production.env
     networks:
       - catalog-bot-network
     depends_on:
