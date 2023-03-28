@@ -18,9 +18,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getTypeOrmConfig } from './config/typeorm.config';
 import { UserModule } from './user/user.module';
 import { LoggerModule } from './logger/logger.module';
+import { InviteUserModule } from './invite-user/invite-user.module';
 
 @Module({
   imports: [
+    InviteUserModule,
     UserModule,
     LoggerModule,
     TypeOrmModule.forRootAsync({
@@ -49,6 +51,7 @@ import { LoggerModule } from './logger/logger.module';
         NODE_ENV: Joi.string().required(),
         INFOGRAPHIC_CHAT_ID: Joi.string().required(),
         MANAGER_CHAT_ID: Joi.string().required(),
+        PORT: Joi.number().required(),
       }),
     }),
   ],
