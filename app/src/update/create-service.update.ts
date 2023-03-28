@@ -264,7 +264,7 @@ export class CreateServiceUpdate {
                   [
                     {
                       text: 'Просмотр отзывов не доступен. ⛔️',
-                      callback_data: `mockData`,
+                      callback_data: `notification`,
                     },
                   ],
                   [
@@ -313,7 +313,7 @@ export class CreateServiceUpdate {
                   [
                     {
                       text: 'Просмотр отзывов не доступен. ⛔️',
-                      callback_data: `mockData`,
+                      callback_data: `notification`,
                     },
                   ],
                   [
@@ -336,6 +336,16 @@ export class CreateServiceUpdate {
           text: 'Вернуться в главное меню. ↩️',
         },
       ]),
+    );
+  }
+
+  @Action('notification')
+  async getNotification(@Ctx() ctx: TelegrafContext) {
+    await ctx.answerCbQuery(
+      'Пользователь не зарегестрирован на sellershub.ru\nПросмотр отзывов не доступен.',
+      {
+        show_alert: true,
+      },
     );
   }
 
