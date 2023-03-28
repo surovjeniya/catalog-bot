@@ -8,12 +8,13 @@ import { InviteUserDto } from './dto/invite-user.dto';
 export class InviteUserService {
   constructor(@InjectBot() private readonly bot: Telegraf<TelegrafContext>) {}
 
-  async inviteUser({ name, phone, telegram_username }: InviteUserDto) {
+  async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
     return await this.bot.telegram.sendMessage(
       54452505,
-      `Имя: ${name},\n
+      `\nИмя: ${name},\n
        Номер телефона:${phone},\n
-       Telegram: ${telegram_username ? telegram_username : 'отсутствует'}`,
+       Telegram: ${telegram_username ? telegram_username : 'отсутствует'}\n,
+       url: ${url ? url : 'отсутствует'}`,
     );
   }
 }
