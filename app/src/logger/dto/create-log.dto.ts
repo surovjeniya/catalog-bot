@@ -4,4 +4,5 @@ export class CreateLogDto {
   action: Commands;
   telegram_id: number;
   username: string;
+  day?: string;
 }

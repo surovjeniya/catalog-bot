@@ -14,7 +14,10 @@ export class LoggerService {
   ) {}
 
   async create(dto: CreateLogDto): Promise<LoggerEntity> {
-    const log = this.loggerRepository.create({ ...dto });
+    const log = this.loggerRepository.create({
+      ...dto,
+      day: new Date().toDateString(),
+    });
     return await this.loggerRepository.save(log);
   }
 
