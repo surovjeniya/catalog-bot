@@ -56,6 +56,17 @@ export class RegisterUpdate {
     }
   }
 
+  @On('text')
+  async pinMessage(@Ctx() ctx: TelegrafContext) {
+    if (!ctx.session.pinTick) {
+      const pin = await ctx.replyWithHTML(
+        'Дорогие пользователи,мы обновили функционал нашего бота.\nДля корректной работы необходимо:\n1.Очистить историю чата.\n2.Нажмите кнопку "Перезапустить бот" в меню слева.\n3.По всем вопросам касаемо функционала нашего бота вы можете обратиться в нашу  <a href="https://t.me/Sellershub_support">поддержку.</a>',
+      );
+      ctx.session.pinTick = true;
+      await ctx.pinChatMessage(pin.message_id);
+    }
+  }
+
   @On(Commands.message)
   async getMessage(
     @Message('text') message: string,
