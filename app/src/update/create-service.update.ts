@@ -351,8 +351,11 @@ export class CreateServiceUpdate {
 
   @Action(/(?<=show-contacts\/).*/)
   async sendContacts(@Ctx() ctx: TelegrafContext) {
-    const mathArr = ctx.match.input.split('/');
-    const username = mathArr[mathArr.length - 1];
+    const matchArr = ctx.match.input.split('/');
+    const username = matchArr[matchArr.length - 1];
+    await ctx.answerCbQuery('Контакты отправлены в чат бот Sellershub.', {
+      show_alert: true,
+    });
     await ctx.telegram.sendMessage(
       //@ts-ignore
       ctx.update.callback_query.from.id,
@@ -367,6 +370,12 @@ export class CreateServiceUpdate {
     const serviceId = matchArr[matchArr.length - 2];
     const service = await this.sellersHubBotApi.getService(+serviceId, ctx);
     if (infoType === 'reviews') {
+      await ctx.answerCbQuery(
+        'Отзывы отправлены в чат бот Sellershub.\nДля просмотра отзывов перейдите в чат и нажмите кнопку "Посмотреть отзывы"',
+        {
+          show_alert: true,
+        },
+      );
       const reviews = service.data.attributes.review.data;
       if (reviews.length) {
         const categorySlug =
@@ -423,6 +432,9 @@ export class CreateServiceUpdate {
         contact_whatsup ? contact_whatsup : 'Отсутствует'
       }\nТелефон: ${phone_number ? phone_number : 'Отсутствует'}\n`;
 
+      await ctx.answerCbQuery('Контакты отправлены в чат бот Sellershub.', {
+        show_alert: true,
+      });
       await ctx.telegram.sendMessage(
         //@ts-ignore
         ctx.update.callback_query.from.id,
