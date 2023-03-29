@@ -15,7 +15,7 @@ export interface TelegrafContext extends Context {
   };
   session: {
     prev_message: number;
-    pinTick: boolean;
+    // pinTick: boolean;
     from: {
       id: number;
       is_bot: boolean;
