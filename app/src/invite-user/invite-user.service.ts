@@ -10,7 +10,7 @@ export class InviteUserService {
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
     return await this.bot.telegram.sendMessage(
-      54452505,
+      671646655,
       `\nИмя: ${name},\n
        Номер телефона:${phone},\n
        Telegram: ${telegram_username ? telegram_username : 'отсутствует'}\n,
