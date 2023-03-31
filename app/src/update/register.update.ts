@@ -50,6 +50,8 @@ export class RegisterUpdate {
 
   @On('photo')
   async test(@Ctx() ctx: TelegrafContext, @Message('photo') photo: any) {
+    console.log(ctx.update.message.chat.id);
+
     if (ctx.update.message.chat.id !== 671646655) {
       const listener = await chatListener(ctx, this.configService);
     }
