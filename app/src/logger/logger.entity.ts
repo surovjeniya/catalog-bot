@@ -9,7 +9,7 @@ export class LoggerEntity {
   @Column()
   action: Commands;
 
-  @Column()
+  @Column({ type: 'bigint' })
   telegram_id: number;
 
   @Column({ default: 1, nullable: true })
