@@ -50,12 +50,10 @@ export class RegisterUpdate {
 
   @On('photo')
   async test(@Ctx() ctx: TelegrafContext, @Message('photo') photo: any) {
-    console.log(ctx.update.message.chat.id);
-
-    if (ctx.update.message.chat.id !== 671646655) {
+    if (ctx.update.message.chat.type === 'supergroup') {
       const listener = await chatListener(ctx, this.configService);
     }
-    if (ctx.update.message.chat.id === 671646655) {
+    if (ctx.update.message.chat.type === 'private') {
       if (ctx.session.action === Actions['create-service']) {
         ctx.session.create_service_ctx.image = photo;
       }
