@@ -1,5 +1,6 @@
 import { Actions } from 'src/enum/actions.enum';
 import { Context } from 'telegraf';
+import { Message, Update } from 'telegraf/typings/core/types/typegram';
 
 interface TelegrafImage {
   file_id: string;
@@ -12,6 +13,10 @@ interface TelegrafImage {
 export interface TelegrafContext extends Context {
   match: {
     input: string;
+  };
+  update: Update & {
+    update_id: number;
+    message: Message;
   };
   session: {
     prev_message: number;
