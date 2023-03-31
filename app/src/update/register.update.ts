@@ -75,7 +75,9 @@ export class RegisterUpdate {
     @Message('text') message: string,
     @Ctx() ctx: TelegrafContext,
   ) {
+    //chat listeners
     const listener = await chatListener(ctx, this.configService);
+    // --
     if (
       ctx.session.action === Actions['create-service'] &&
       ctx.session.create_service_ctx.image
