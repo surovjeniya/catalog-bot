@@ -89,7 +89,10 @@ export class RegisterUpdate {
       ctx.session.create_service_ctx.image
     ) {
       ctx.session.create_service_ctx.description = message;
+      // console.log(ctx.session.create_service_ctx.description.length);
       if (ctx.session.create_service_ctx.description.length > 1000) {
+        ctx.session.create_service_ctx.description =
+          ctx.session.create_service_ctx.description.substring(0, 1000) + '...';
         ctx.session.create_service_ctx.description.substring(0, 1000) + '...';
       }
       if (ctx.session.create_service_ctx.description) {
