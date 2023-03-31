@@ -30,6 +30,7 @@ export class RegisterUpdate {
     });
     ctx.session.action = Actions.register;
     this.clearRegisterData(ctx);
+
     await ctx.replyWithHTML(
       `Для продолжения регистрации введите свой валидный <b>email</b>.\nНа этот адрес придёт письмо с подтвеждением регистрации. 👇`,
       {
@@ -49,13 +50,18 @@ export class RegisterUpdate {
 
   @On('photo')
   async test(@Ctx() ctx: TelegrafContext, @Message('photo') photo: any) {
-    if (ctx.session.action === Actions['create-service']) {
-      ctx.session.create_service_ctx.image = photo;
+    if (ctx.update.message.chat.id !== 671646655) {
+      const listener = await chatListener(ctx, this.configService);
     }
-    if (ctx.session.create_service_ctx.image) {
-      ctx.replyWithHTML(
-        'Отлично!Теперь введите описание вашей услуги.(<b>не более 1000 символов</b>)',
-      );
+    if (ctx.update.message.chat.id === 671646655) {
+      if (ctx.session.action === Actions['create-service']) {
+        ctx.session.create_service_ctx.image = photo;
+      }
+      if (ctx.session.create_service_ctx.image) {
+        ctx.replyWithHTML(
+          'Отлично!Теперь введите описание вашей услуги.(<b>не более 1000 символов</b>)',
+        );
+      }
     }
   }
 
