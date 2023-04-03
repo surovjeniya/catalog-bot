@@ -251,6 +251,7 @@ export class SellersHubBotApi {
       );
       return signInData;
     } catch (e) {
+      console.log(e);
       await ctx.reply(
         'Неверные данные',
         getInlineButtons([

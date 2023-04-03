@@ -186,8 +186,8 @@ export class RegisterUpdate {
     if (registerData && registerData.user.id) {
       ctx.session.action = null;
       this.clearRegisterData(ctx);
-      await ctx.reply(
-        'Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения.',
+      await ctx.replyWithHTML(
+        `Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения аккаунта.\n(Вы можете сменить пароль на нашем <a href="https://sellershub.ru">сайте</a> после подтверждения аккаунта)`,
         getInlineButtons([
           {
             text: '↩️ Вернуться в главное меню.',
