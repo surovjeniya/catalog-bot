@@ -30,7 +30,7 @@ export class InviteUserService {
     } \n
     Контакты: ${dto.contacts ? JSON.stringify(dto.contacts) : 'отсутствует'}
     `;
-    return await this.bot.telegram.sendMessage(671646655, message);
+    return await this.bot.telegram.sendMessage(54452505, message);
   }
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
