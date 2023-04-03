@@ -1,13 +1,13 @@
-import { Action, Ctx, Update } from 'nestjs-telegraf';
+import { Injectable } from '@nestjs/common';
+import { Ctx } from 'nestjs-telegraf';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { LoggerService } from 'src/logger/logger.service';
 
-@Update()
-export class ChatsUpdate {
+@Injectable()
+export class ChatService {
   constructor(private readonly loggerService: LoggerService) {}
 
-  @Action(Commands.chats)
   async getChats(@Ctx() ctx: TelegrafContext) {
     await this.loggerService.updateLog({
       action: Commands.chats,

@@ -3,9 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { AppUpdate } from './app.update';
 import { getTelegrafConfig } from './config/telegraf.config';
-import { AiUpdate } from './update/ai.update';
-import { CatalogUpdate } from './update/catalog.update';
-import { ChatsUpdate } from './update/chats.update';
 import { CreateServiceUpdate } from './update/create-service.update';
 import { MenuUpdate } from './update/menu.update';
 import { PersonalUpdate } from './update/personal.update';
@@ -19,12 +16,14 @@ import { getTypeOrmConfig } from './config/typeorm.config';
 import { UserModule } from './user/user.module';
 import { LoggerModule } from './logger/logger.module';
 import { InviteUserModule } from './invite-user/invite-user.module';
+import { AiModule } from './ai/ai.module';
+import { ChatModule } from './chat/chat.module';
+import { CatalogModule } from './catalog/catalog.module';
+import { ServiceModule } from './service/service.module';
+import { MenuModule } from './menus/menu.module';
 
 @Module({
   imports: [
-    InviteUserModule,
-    UserModule,
-    LoggerModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>
@@ -54,18 +53,23 @@ import { InviteUserModule } from './invite-user/invite-user.module';
         PORT: Joi.number().required(),
       }),
     }),
+    // MenuModule,
+    // ServiceModule,
+    CatalogModule,
+    ChatModule,
+    AiModule,
+    InviteUserModule,
+    UserModule,
+    LoggerModule,
   ],
   providers: [
     AppUpdate,
-    CatalogUpdate,
     PersonalUpdate,
     RegisterUpdate,
     SignInUpdate,
     SellersHubBotApi,
     CreateServiceUpdate,
     SupportUpdate,
-    ChatsUpdate,
-    AiUpdate,
     MenuUpdate,
   ],
 })
