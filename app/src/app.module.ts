@@ -4,7 +4,6 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import { AppUpdate } from './app.update';
 import { getTelegrafConfig } from './config/telegraf.config';
 import { RegisterUpdate } from './update/register.update';
-import { SignInUpdate } from './update/sign-in.update';
 import { SellersHubBotApi } from './utils/api-class.utils';
 import * as Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,6 +18,7 @@ import { ServiceModule } from './service/service.module';
 import { MenuModule } from './menus/menu.module';
 import { PersonalModule } from './personal/personal.module';
 import { SupportModule } from './support/support.module';
+import { SignInModule } from './sign-in/sign-in.module';
 
 @Module({
   imports: [
@@ -61,7 +61,8 @@ import { SupportModule } from './support/support.module';
     UserModule,
     LoggerModule,
     SupportModule,
+    SignInModule,
   ],
-  providers: [AppUpdate, RegisterUpdate, SignInUpdate, SellersHubBotApi],
+  providers: [AppUpdate, RegisterUpdate, SellersHubBotApi],
 })
 export class AppModule {}
