@@ -1,5 +1,7 @@
-import { Injectable, LoggerService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
+import { LoggerService } from 'src/logger/logger.service';
 import { startMenu } from 'src/menu/start.menu';
 
 @Injectable()
@@ -7,12 +9,12 @@ export class MenuService {
   constructor(private readonly loggerService: LoggerService) {}
 
   async getMenu(ctx: TelegrafContext) {
-    // await this.loggerService.updateLog({
-    //   action: Commands.menu,
-    //   day: new Date().toDateString(),
-    //   telegram_id: ctx.from.id,
-    //   username: ctx.from.username ? ctx.from.username : null,
-    // });
+    await this.loggerService.updateLog({
+      action: Commands.menu,
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username ? ctx.from.username : null,
+    });
     this.clearSession(ctx);
     await ctx.reply('Меню:', {
       reply_markup: {

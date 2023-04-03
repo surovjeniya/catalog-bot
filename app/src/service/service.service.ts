@@ -1,4 +1,4 @@
-import { Injectable, LoggerService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Ctx } from 'nestjs-telegraf';
 import { Actions } from 'src/enum/actions.enum';
@@ -7,14 +7,15 @@ import { TelegrafContext } from 'src/interface/telegraf.context';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
 import * as htmlParser from 'node-html-markdown';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
 export class ServiceService {
   constructor(
     private readonly sellersHubBotApi: SellersHubBotApi,
     private readonly configService: ConfigService,
-  ) // private readonly loggerService: LoggerService,
-  {}
+    private readonly loggerService: LoggerService,
+  ) {}
 
   clearServiceData(ctx: TelegrafContext) {
     ctx.session.create_service_ctx = {
@@ -29,12 +30,12 @@ export class ServiceService {
   }
 
   async createServiceAction(@Ctx() ctx: TelegrafContext) {
-    // await this.loggerService.updateLog({
-    //   action: Commands['create-service'],
-    //   day: new Date().toDateString(),
-    //   telegram_id: ctx.from.id,
-    //   username: ctx.from.username ? ctx.from.username : null,
-    // });
+    await this.loggerService.updateLog({
+      action: Commands['create-service'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username ? ctx.from.username : null,
+    });
     ctx.session.action = Actions['create-service'];
     this.clearServiceData(ctx);
     ctx.reply('Выберите чат для публикации вашей услуги.', {
@@ -197,12 +198,12 @@ export class ServiceService {
   }
 
   async createServiceViaBot(@Ctx() ctx: TelegrafContext) {
-    // await this.loggerService.updateLog({
-    //   action: Commands['create-via-bot'],
-    //   day: new Date().toDateString(),
-    //   telegram_id: ctx.from.id,
-    //   username: ctx.from.username,
-    // });
+    await this.loggerService.updateLog({
+      action: Commands['create-via-bot'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     await ctx.reply(
       'Для создания услуги необходимо:\n1.Превью услуги. 🌄\n2.Текстовое описание 🔠',
     );
@@ -436,12 +437,12 @@ export class ServiceService {
   }
 
   async createServiceViaSite(@Ctx() ctx: TelegrafContext) {
-    // await this.loggerService.updateLog({
-    //   action: Commands['create-via-site'],
-    //   day: new Date().toDateString(),
-    //   telegram_id: ctx.from.id,
-    //   username: ctx.from.username,
-    // });
+    await this.loggerService.updateLog({
+      action: Commands['create-via-site'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
     const matchArr = ctx.match.input.split('/');
     const id = matchArr[matchArr.length - 1];
     const service = await this.sellersHubBotApi.getService(+id, ctx);
