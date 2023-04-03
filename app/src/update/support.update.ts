@@ -17,7 +17,7 @@ export class SupportUpdate {
       action: Commands.support,
       day: new Date().toDateString(),
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/chat_f27c971104.jpg?updated_at=2023-03-16T12:34:08.511Z',

@@ -14,7 +14,7 @@ export class PersonalUpdate {
       action: Commands.personal,
       day: new Date().toDateString(),
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     ctx.session.action = Actions['personal-specialist'];
     await ctx.replyWithHTML(

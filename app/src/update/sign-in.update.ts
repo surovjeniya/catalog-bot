@@ -19,7 +19,7 @@ export class SignInUpdate {
       action: Commands['sign-in'],
       day: new Date().toDateString(),
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     ctx.session.action = Actions['sign-in'];
     this.clearLoginData(ctx);

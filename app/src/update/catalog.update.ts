@@ -18,7 +18,7 @@ export class CatalogUpdate {
     await this.loggerService.updateLog({
       action: Commands.catalog,
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     const categories = await this.api.getCategories(ctx);
     const parentCategories = categories.data
@@ -45,7 +45,7 @@ export class CatalogUpdate {
     await this.loggerService.updateLog({
       action: Commands.catalog,
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     const categories = await this.api.getCategories(ctx);
     const parentCategories = categories.data

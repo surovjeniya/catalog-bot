@@ -15,8 +15,8 @@ export class LoggerEntity {
   @Column({ default: 1, nullable: true })
   count?: number;
 
-  @Column()
-  username: string;
+  @Column({ nullable: true })
+  username?: string;
 
   @Column({ default: new Date().toDateString() })
   day?: string;

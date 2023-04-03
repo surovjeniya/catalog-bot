@@ -14,7 +14,7 @@ export class MenuUpdate {
       action: Commands.menu,
       day: new Date().toDateString(),
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     this.clearSession(ctx);
     await ctx.reply('Меню:', {

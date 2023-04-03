@@ -38,7 +38,6 @@ export class LoggerService {
       where: {
         action,
         telegram_id,
-        username,
         day: new Date().toDateString(),
       },
     });

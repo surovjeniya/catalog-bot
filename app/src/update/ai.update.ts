@@ -13,7 +13,7 @@ export class AiUpdate {
       action: Commands.ai,
       day: new Date().toDateString(),
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     await ctx.replyWithPhoto(
       'https://sellershub.ru/api/uploads/photo_2023_03_15_12_38_52_00dc0f6b34.jpg?updated_at=2023-03-16T12:53:44.231Z',

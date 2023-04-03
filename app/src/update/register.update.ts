@@ -26,7 +26,7 @@ export class RegisterUpdate {
       action: Commands.register,
       day: new Date().toDateString(),
       telegram_id: ctx.from.id,
-      username: ctx.from.username,
+      username: ctx.from.username ? ctx.from.username : null,
     });
     ctx.session.action = Actions.register;
     this.clearRegisterData(ctx);
