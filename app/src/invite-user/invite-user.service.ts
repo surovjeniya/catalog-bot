@@ -11,6 +11,7 @@ export class InviteUserService {
 
   async searchFulfillment(dto: SearchFulfillmentDto) {
     const message = `
+    Фуллфилмент:заявка на расчёт\n
     Местоположение: ${
       dto.locations.length ? JSON.stringify(dto.locations) : 'отсутствует'
     } \n
@@ -36,7 +37,8 @@ export class InviteUserService {
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
     return await this.bot.telegram.sendMessage(
       54452505,
-      `\nИмя: ${name},\n
+      `Фуллфилмент:персональный подбор\n
+      \nИмя: ${name},\n
        Номер телефона:${phone},\n
        Telegram: ${telegram_username ? telegram_username : 'отсутствует'}\n,
        url: ${url ? url : 'отсутствует'}`,
