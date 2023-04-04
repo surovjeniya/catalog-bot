@@ -42,6 +42,7 @@ export class InviteUserService {
   }
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
+    console.log(name, phone, telegram_username, url);
     return await this.bot.telegram.sendMessage(
       54452505,
       `Фуллфилмент:персональный подбор\n
