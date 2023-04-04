@@ -38,6 +38,7 @@ export class ServiceService {
     });
     ctx.session.action = Actions['create-service'];
     this.clearServiceData(ctx);
+
     ctx.reply('Выберите чат для публикации вашей услуги.', {
       reply_markup: {
         inline_keyboard: [
@@ -228,7 +229,7 @@ export class ServiceService {
         ctx.session.create_service_ctx.chatId,
         ctx.session.create_service_ctx.image[0].file_id,
         {
-          parse_mode: 'Markdown',
+          // parse_mode: 'Markdown',
           caption: ctx.session.create_service_ctx.description,
           reply_markup: serviceId
             ? {
