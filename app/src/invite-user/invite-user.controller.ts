@@ -1,4 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { BidFulFillmentDto } from './dto/bid-fulfillment.dto';
 import { InviteUserDto } from './dto/invite-user.dto';
 import { SearchFulfillmentDto } from './dto/search-fulfillment.dto';
 import { InviteUserService } from './invite-user.service';
@@ -15,5 +16,10 @@ export class InviteUserController {
   @Post('search-fulfillment')
   async searchFulfillment(@Body() dto: SearchFulfillmentDto) {
     return await this.inviteUserService.searchFulfillment(dto);
+  }
+
+  @Post('bid-fulfillment')
+  async bidFulfillment(@Body() dto: BidFulFillmentDto) {
+    return await this.inviteUserService.bidFulfillment(dto);
   }
 }

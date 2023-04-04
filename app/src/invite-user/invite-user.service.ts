@@ -2,12 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { Telegraf } from 'telegraf';
+import { BidFulFillmentDto } from './dto/bid-fulfillment.dto';
 import { InviteUserDto } from './dto/invite-user.dto';
 import { SearchFulfillmentDto } from './dto/search-fulfillment.dto';
 
 @Injectable()
 export class InviteUserService {
   constructor(@InjectBot() private readonly bot: Telegraf<TelegrafContext>) {}
+
+  async bidFulfillment(dto: BidFulFillmentDto) {
+    return {
+      ...dto,
+    };
+  }
 
   async searchFulfillment(dto: SearchFulfillmentDto) {
     const message = `
