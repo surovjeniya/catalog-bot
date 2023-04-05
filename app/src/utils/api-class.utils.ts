@@ -52,18 +52,15 @@ export class SellersHubBotApi {
     const { message, rating, serviceId } = ctx.session.fast_review;
 
     try {
-      const { data: review } = await this.$axios.post(`/reviews`, {
+      const { data: review } = await this.$axios.post(`/reviews/fast-review`, {
         data: {
           description: message,
           rating,
-          title: message,
           service: serviceId,
+          username: ctx.from.username ? ctx.from.username : ctx.from.id,
         },
       });
-    } catch (e) {
-      await ctx.reply(JSON.stringify(ctx.session.fast_review));
-      await ctx.reply('Нужно делать бэк');
-    }
+    } catch (e) {}
   }
 
   async getMyProfile(ctx: TelegrafContext): Promise<IMyProfile> {
@@ -83,19 +80,24 @@ export class SellersHubBotApi {
     } catch (e) {
       if (axios.isAxiosError<ValidationError, Record<string, unknown>>(e)) {
         if (e.response.status === 404) {
-          await ctx.reply(
-            'У вас пока не создан профиль.',
-            Markup.inlineKeyboard([
-              [
-                Markup.button.url(
-                  'Создать профиль на сайте',
-                  'https://sellershub.ru',
-                ),
-                Markup.button.callback('Нет.(Возврат в главное меню)', 'start'),
+          await ctx.reply('У вас пока нет профиля Sellershub.', {
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  {
+                    text: 'Создать профиль на сайте',
+                    url: this.configService.get('WEB'),
+                  },
+                ],
+                [
+                  {
+                    text: '↩️ Вернуться в главное меню.',
+                    callback_data: Commands.menu,
+                  },
+                ],
               ],
-            ]),
-          );
-          throw new NotFoundException(e.response.data.messageObject.message);
+            },
+          });
         }
       } else {
       }

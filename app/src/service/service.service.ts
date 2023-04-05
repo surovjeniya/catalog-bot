@@ -123,30 +123,49 @@ export class ServiceService {
 
     if (decision && decision === 'yes') {
       const profile = await this.sellersHubBotApi.getMyProfile(ctx);
-      const { services } = profile.data.attributes;
+      if (profile) {
+        const { services } = profile.data.attributes;
 
-      if (services.data.length) {
-        const servicesByCategorySlug = services.data
-          .filter((s) =>
-            s.attributes.service_categories.data.find(
-              (c) => c.attributes.slug === categorySlug,
-            ),
-          )
-          .flat();
-        if (servicesByCategorySlug.length) {
-          const menu = servicesByCategorySlug.map((s) => {
-            return {
-              data: `/create-via-site/${s.id}`,
-              text: s.attributes.name,
-            };
-          });
-          await ctx.reply(
-            'Выберите услугу для публикации.',
-            getInlineButtons(menu, 1),
-          );
+        if (services.data.length) {
+          const servicesByCategorySlug = services.data
+            .filter((s) =>
+              s.attributes.service_categories.data.find(
+                (c) => c.attributes.slug === categorySlug,
+              ),
+            )
+            .flat();
+          if (servicesByCategorySlug.length) {
+            const menu = servicesByCategorySlug.map((s) => {
+              return {
+                data: `/create-via-site/${s.id}`,
+                text: s.attributes.name,
+              };
+            });
+            await ctx.reply(
+              'Выберите услугу для публикации.',
+              getInlineButtons(menu, 1),
+            );
+          } else {
+            await ctx.reply(
+              'У вас нет созданных услуг в данной категории на сайте.Создать услугу через бот?',
+              getInlineButtons(
+                [
+                  {
+                    text: 'Да',
+                    data: 'create-via-bot',
+                  },
+                  {
+                    text: '↩️ Вернуться в главное меню.',
+                    data: Commands.menu,
+                  },
+                ],
+                1,
+              ),
+            );
+          }
         } else {
           await ctx.reply(
-            'У вас нет созданных услуг в данной категории на сайте.Создать услугу через бот?',
+            'У вас нет созданных услуг на сайте.Создать услугу через бот?',
             getInlineButtons(
               [
                 {
@@ -154,7 +173,7 @@ export class ServiceService {
                   data: 'create-via-bot',
                 },
                 {
-                  text: '↩️ Нет (Возврат в главное меню.)',
+                  text: '↩️ Вернуться в главное меню.',
                   data: Commands.menu,
                 },
               ],
@@ -162,23 +181,6 @@ export class ServiceService {
             ),
           );
         }
-      } else {
-        await ctx.reply(
-          'У вас нет созданных услуг на сайте.Создать услугу через бот?',
-          getInlineButtons(
-            [
-              {
-                text: 'Да',
-                data: 'create-via-bot',
-              },
-              {
-                text: 'Нет (Возврат в главное меню.) ↩️',
-                data: Commands.menu,
-              },
-            ],
-            1,
-          ),
-        );
       }
     }
     if (decision && decision === 'no') {
@@ -191,7 +193,7 @@ export class ServiceService {
               data: 'create-via-bot',
             },
             {
-              text: 'Нет (Возврат в главное меню.) ↩️',
+              text: '↩️ Вернуться в главное меню.',
               data: Commands.menu,
             },
           ],
@@ -208,9 +210,6 @@ export class ServiceService {
       telegram_id: ctx.from.id,
       username: ctx.from.username,
     });
-    await ctx.reply(
-      'Для создания услуги необходимо:\n1.Превью услуги. 🌄\n2.Текстовое описание 🔠',
-    );
     await ctx.replyWithHTML(
       'Загрузите изображение,оно будет отображаться как превью в вашей услуге.(<b>не более одного изображения</b>) 📎.',
     );
@@ -332,7 +331,7 @@ export class ServiceService {
       getInlineButtons([
         {
           data: Commands.menu,
-          text: 'Вернуться в главное меню. ↩️',
+          text: '↩️ Вернуться в главное меню.',
         },
       ]),
     );
@@ -537,13 +536,13 @@ export class ServiceService {
             inline_keyboard: [
               [
                 {
-                  text: 'Опубликовать ✅',
+                  text: 'Опубликовать',
                   callback_data: 'send-to-chat',
                 },
               ],
               [
                 {
-                  text: 'Нет (Вернуться в главное меню) ↩️',
+                  text: '↩️ Вернуться в меню',
                   callback_data: Commands.menu,
                 },
               ],
@@ -558,13 +557,13 @@ export class ServiceService {
           inline_keyboard: [
             [
               {
-                text: 'Опубликовать ✅',
+                text: 'Опубликовать',
                 callback_data: 'send-to-chat',
               },
             ],
             [
               {
-                text: 'Нет (Вернуться в главное меню) ↩️',
+                text: '↩️ Вернуться в меню',
                 callback_data: Commands.menu,
               },
             ],

@@ -63,7 +63,7 @@ export class RegisterUpdate {
       }
       if (ctx.session.create_service_ctx.image) {
         ctx.replyWithHTML(
-          'Отлично!Теперь введите описание вашей услуги.(<b>не более 1000 символов</b>)',
+          'Отлично! Теперь введите описание вашей услуги. (<b>не более 1000 символов</b>)',
         );
       }
     }
@@ -100,7 +100,7 @@ export class RegisterUpdate {
         );
         await ctx.reply(ctx.session.create_service_ctx.description);
         await ctx.reply(
-          'Отлично!Вот ваша услугу.Опубликовать?',
+          'Отлично! Вот ваша услугу. Опубликовать?',
           getInlineButtons([
             {
               data: 'send-to-chat',
@@ -160,7 +160,7 @@ export class RegisterUpdate {
         ctx.session.register_data.validateEmail = true;
         ctx.session.register_data.password = this.generatePass();
         await ctx.replyWithHTML(
-          `<b>Ваши сгенерированные данные:</b>\nemail: ${ctx.session.register_data.email},\nпароль: ${ctx.session.register_data.password}`,
+          `<b>Ваши сгенерированные данные: </b>\nemail: ${ctx.session.register_data.email},\nпароль: ${ctx.session.register_data.password}`,
         );
         await ctx.reply(
           'Продолжить?',
@@ -179,7 +179,7 @@ export class RegisterUpdate {
           ),
         );
       } else {
-        await ctx.reply('Некорректный формат');
+        await ctx.reply('Некорректный формат.');
       }
     }
   }
@@ -197,7 +197,7 @@ export class RegisterUpdate {
       ctx.session.action = null;
       this.clearRegisterData(ctx);
       await ctx.replyWithHTML(
-        `Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения аккаунта.\n(Вы можете сменить пароль на нашем <a href="https://sellershub.ru">сайте</a> после подтверждения аккаунта)`,
+        `Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения регистрации.\n(Вы можете сменить пароль на нашем <a href="https://sellershub.ru">сайте</a> после подтверждения аккаунта)`,
         getInlineButtons([
           {
             text: '↩️ Вернуться в главное меню.',
