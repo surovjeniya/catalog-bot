@@ -16,7 +16,10 @@ export interface TelegrafContext extends Context {
   };
   update: Update & {
     update_id: number;
-    message: Message;
+    message: Message & {
+      date: number;
+      text: string;
+    };
   };
   session: {
     prev_message: number;

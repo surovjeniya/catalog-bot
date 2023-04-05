@@ -6,6 +6,15 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum Utm {
+  chat_design = 'chat_design',
+  chat_managers = 'chat_managers',
+  chat_main = 'chat_main',
+  chat_ai = 'chat_ai',
+  chat_bayer = 'chat_bayer',
+  site = 'site',
+}
+
 @Entity({ name: 'user' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -28,6 +37,9 @@ export class UserEntity {
 
   @Column({ nullable: true })
   language_code?: string;
+
+  @Column({ nullable: true })
+  utm?: string;
 
   @CreateDateColumn()
   createdAt: Date;

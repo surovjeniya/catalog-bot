@@ -6,6 +6,7 @@ import { startMessage } from './message';
 import { startMenu } from './menu/start.menu';
 import { UserService } from './user/user.service';
 import { LoggerService } from './logger/logger.service';
+import { Utm } from './user/user.entity';
 
 @Update()
 export class AppUpdate {
@@ -68,6 +69,7 @@ export class AppUpdate {
 
   @Command(Commands.start)
   async start(@Ctx() ctx: TelegrafContext) {
+    const utm = ctx.update.message.text.split(' ')[1];
     const { first_name, id, is_bot, language_code, last_name, username } =
       ctx.from;
     ctx.session.from = {
@@ -96,6 +98,7 @@ export class AppUpdate {
         last_name,
         username,
         telegram_id: id,
+        utm: utm && (<any>Object).values(Utm).includes(utm) ? utm : null,
       });
     }
     await ctx.replyWithPhoto(

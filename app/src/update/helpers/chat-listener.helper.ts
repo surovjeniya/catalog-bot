@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { TelegrafContext } from 'src/interface/telegraf.context';
+import { Utm } from 'src/user/user.entity';
 
 export const chatListener = async (
   ctx: TelegrafContext,
@@ -20,7 +21,9 @@ const managerChatListener = async (
   await ctx.replyWithHTML(
     `Вы знали, что ваши сообщения удаляются спустя 5 минут?\nЗарегистрируйтесь в <a href="${configService.get(
       'BOT_URL',
-    )}">нашем боте</a>, чтобы ваш пост висел вечность.\nХотите больше конверсии? Размещайте свою услугу в каталоге <a href="https://sellershub.ru">SellersHub</a> , где десятки тысячи селлеров ищут специалистов для сотрудничества.\nПо вопросам работы бота вы можете обратиться в нашу <a href="https://t.me/Nastyasellers">поддержку</a>.`,
+    )}?start=${
+      Utm.chat_managers
+    }">нашем боте</a>, чтобы ваш пост висел вечность.\nХотите больше конверсии? Размещайте свою услугу в каталоге <a href="https://sellershub.ru">SellersHub</a> , где десятки тысячи селлеров ищут специалистов для сотрудничества.\nПо вопросам работы бота вы можете обратиться в нашу <a href="https://t.me/Nastyasellers">поддержку</a>.`,
     {
       reply_to_message_id: ctx.message.message_id,
     },
@@ -35,7 +38,9 @@ const infographicChatListener = async (
   await ctx.replyWithHTML(
     `Вы знали, что ваши сообщения удаляются спустя 5 минут?\nЗарегистрируйтесь в <a href="${configService.get(
       'BOT_URL',
-    )}">нашем боте</a>, чтобы ваш пост висел вечность.\nХотите больше конверсии? Размещайте свою услугу в каталоге <a href="https://sellershub.ru">SellersHub</a> , где десятки тысячи селлеров ищут специалистов для сотрудничества.\nПо вопросам работы бота вы можете обратиться в нашу <a href="https://t.me/Nastyasellers">поддержку</a>.`,
+    )}?start=${
+      Utm.chat_design
+    }">нашем боте</a>, чтобы ваш пост висел вечность.\nХотите больше конверсии? Размещайте свою услугу в каталоге <a href="https://sellershub.ru">SellersHub</a> , где десятки тысячи селлеров ищут специалистов для сотрудничества.\nПо вопросам работы бота вы можете обратиться в нашу <a href="https://t.me/Nastyasellers">поддержку</a>.`,
     {
       reply_to_message_id: ctx.message.message_id,
     },
