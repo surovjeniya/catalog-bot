@@ -39,7 +39,7 @@ export const startMenu = (ctx: TelegrafContext) => {
     menu = [
       [
         {
-          text: 'Зарегестрироваться',
+          text: 'Создать аккаунт Sellershub',
           callback_data: Commands.register,
         },
         {
