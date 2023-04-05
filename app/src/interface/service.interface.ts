@@ -254,6 +254,24 @@ export interface Attributes6 {
   sort_index: number;
   prices?: any;
   filters: Filter[];
+  parent_category: {
+    data: {
+      id: number;
+      attributes: {
+        name: string;
+        slug: string;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
+        ui_code: string;
+        dataset: any;
+        description: string;
+        sort_index: number;
+        prices: any;
+        filters: any;
+      };
+    };
+  };
 }
 
 export interface Datum3 {

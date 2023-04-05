@@ -2,12 +2,14 @@ import { ConfigService } from '@nestjs/config';
 import { Action, Ctx, Message, On, Update } from 'nestjs-telegraf';
 import { Actions } from 'src/enum/actions.enum';
 import { Commands } from 'src/enum/commands.enum';
+import { FastReviewService } from 'src/fast-review/fast-review.service';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { LoggerService } from 'src/logger/logger.service';
 import {
   getSignInCredentials as getSignInCredentials,
   INVALID_EMAIL,
 } from 'src/message';
+import { UserService } from 'src/user/user.service';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
 import { chatListener } from './helpers/chat-listener.helper';
@@ -18,6 +20,8 @@ export class RegisterUpdate {
     private readonly sellersBotApi: SellersHubBotApi,
     private readonly loggerService: LoggerService,
     private readonly configService: ConfigService,
+    private readonly fastReviewService: FastReviewService,
+    private readonly userService: UserService,
   ) {}
 
   @Action(Commands.register)
@@ -59,7 +63,7 @@ export class RegisterUpdate {
       }
       if (ctx.session.create_service_ctx.image) {
         ctx.replyWithHTML(
-          'Отлично!Теперь введите описание вашей услуги.(<b>не более 1000 символов</b>)',
+          'Отлично! Теперь введите описание вашей услуги. (<b>не более 1000 символов</b>)',
         );
       }
     }
@@ -73,6 +77,12 @@ export class RegisterUpdate {
     //chat listeners
     const listener = await chatListener(ctx, this.configService);
     // --
+    if (ctx.session.action === Actions.review) {
+      const reviewMessage = await this.fastReviewService.createReviewMessage(
+        ctx,
+        message,
+      );
+    }
     if (
       ctx.session.action === Actions['create-service'] &&
       ctx.session.create_service_ctx.image
@@ -90,7 +100,7 @@ export class RegisterUpdate {
         );
         await ctx.reply(ctx.session.create_service_ctx.description);
         await ctx.reply(
-          'Отлично!Вот ваша услугу.Опубликовать?',
+          'Отлично! Вот ваша услугу. Опубликовать?',
           getInlineButtons([
             {
               data: 'send-to-chat',
@@ -150,7 +160,7 @@ export class RegisterUpdate {
         ctx.session.register_data.validateEmail = true;
         ctx.session.register_data.password = this.generatePass();
         await ctx.replyWithHTML(
-          `<b>Ваши сгенерированные данные:</b>\nemail: ${ctx.session.register_data.email},\nпароль: ${ctx.session.register_data.password}`,
+          `<b>Ваши сгенерированные данные: </b>\nemail: ${ctx.session.register_data.email},\nпароль: ${ctx.session.register_data.password}`,
         );
         await ctx.reply(
           'Продолжить?',
@@ -169,7 +179,7 @@ export class RegisterUpdate {
           ),
         );
       } else {
-        await ctx.reply('Некорректный формат');
+        await ctx.reply('Некорректный формат.');
       }
     }
   }
@@ -187,7 +197,7 @@ export class RegisterUpdate {
       ctx.session.action = null;
       this.clearRegisterData(ctx);
       await ctx.replyWithHTML(
-        `Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения аккаунта.\n(Вы можете сменить пароль на нашем <a href="https://sellershub.ru">сайте</a> после подтверждения аккаунта)`,
+        `Ваша учётная запись успешно создана!\nНа указанный e-mail будет отправлена ссылка для подтверждения регистрации.\n(Вы можете сменить пароль на нашем <a href="https://sellershub.ru">сайте</a> после подтверждения аккаунта)`,
         getInlineButtons([
           {
             text: '↩️ Вернуться в главное меню.',

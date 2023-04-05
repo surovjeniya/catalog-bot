@@ -3,10 +3,14 @@ import { Ctx } from 'nestjs-telegraf';
 import { Commands } from 'src/enum/commands.enum';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { LoggerService } from 'src/logger/logger.service';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class ChatService {
-  constructor(private readonly loggerService: LoggerService) {}
+  constructor(
+    private readonly loggerService: LoggerService,
+    private readonly userService: UserService,
+  ) {}
 
   async getChats(@Ctx() ctx: TelegrafContext) {
     await this.loggerService.updateLog({

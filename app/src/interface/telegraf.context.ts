@@ -28,7 +28,6 @@ export interface TelegrafContext extends Context {
   };
   session: {
     prev_message: number;
-    // pinTick: boolean;
     from: {
       id: number;
       is_bot: boolean;
@@ -61,6 +60,12 @@ export interface TelegrafContext extends Context {
       phone_number?: any;
     };
     action: Actions;
+    fast_review: {
+      serviceId?: number;
+      message: string;
+      rating: number;
+      username: string | number;
+    };
     jwt: string;
     register_data: {
       email: string;
