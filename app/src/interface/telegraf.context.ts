@@ -1,6 +1,10 @@
 import { Actions } from 'src/enum/actions.enum';
 import { Context } from 'telegraf';
-import { Message, Update } from 'telegraf/typings/core/types/typegram';
+import {
+  CallbackQuery,
+  Message,
+  Update,
+} from 'telegraf/typings/core/types/typegram';
 
 interface TelegrafImage {
   file_id: string;
@@ -15,6 +19,7 @@ export interface TelegrafContext extends Context {
     input: string;
   };
   update: Update & {
+    callback_query: CallbackQuery;
     update_id: number;
     message: Message & {
       date: number;

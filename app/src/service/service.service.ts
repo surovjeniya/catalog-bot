@@ -8,6 +8,8 @@ import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
 import * as htmlParser from 'node-html-markdown';
 import { LoggerService } from 'src/logger/logger.service';
+import { UserService } from 'src/user/user.service';
+import { Utm } from 'src/user/user.entity';
 
 @Injectable()
 export class ServiceService {
@@ -15,6 +17,7 @@ export class ServiceService {
     private readonly sellersHubBotApi: SellersHubBotApi,
     private readonly configService: ConfigService,
     private readonly loggerService: LoggerService,
+    private readonly userService: UserService,
   ) {}
 
   clearServiceData(ctx: TelegrafContext) {
@@ -324,7 +327,6 @@ export class ServiceService {
         },
       );
     }
-
     await ctx.reply(
       'Услуга опубликована.',
       getInlineButtons([
@@ -346,16 +348,48 @@ export class ServiceService {
   }
 
   async sendContacts(@Ctx() ctx: TelegrafContext) {
+    const user = await this.userService.findOne({
+      telegram_id: ctx.update.callback_query.from.id,
+    });
     const matchArr = ctx.match.input.split('/');
     const username = matchArr[matchArr.length - 1];
-    await ctx.answerCbQuery('Контакты отправлены в чат бот Sellershub.', {
-      show_alert: true,
-    });
-    await ctx.telegram.sendMessage(
-      //@ts-ignore
-      ctx.update.callback_query.from.id,
-      `telegram: ${'https://t.me/' + username}`,
-    );
+
+    if (user) {
+      await ctx.answerCbQuery('Контакты отправлены в чат бот Sellershub.', {
+        show_alert: true,
+      });
+      await ctx.telegram.sendMessage(
+        ctx.update.callback_query.from.id,
+        `telegram: ${'https://t.me/' + username}`,
+      );
+    } else {
+      if (
+        ctx.update.callback_query.message.chat.id ==
+        this.configService.get('INFOGRAPHIC_CHAT_ID')
+      ) {
+        await ctx.answerCbQuery('', {
+          url: `${this.configService.get('BOT_URL')}?start=${Utm.chat_design}`,
+        });
+        await ctx.telegram.sendMessage(
+          ctx.update.callback_query.from.id,
+          `telegram: ${'https://t.me/' + username}`,
+        );
+      }
+      if (
+        ctx.update.callback_query.message.chat.id ==
+        this.configService.get('MANAGER_CHAT_ID')
+      ) {
+        await ctx.answerCbQuery('', {
+          url: `${this.configService.get('BOT_URL')}?start=${
+            Utm.chat_managers
+          }`,
+        });
+        await ctx.telegram.sendMessage(
+          ctx.update.callback_query.from.id,
+          `telegram: ${'https://t.me/' + username}`,
+        );
+      }
+    }
   }
 
   async sendMoreInfo(@Ctx() ctx: TelegrafContext) {
@@ -363,7 +397,34 @@ export class ServiceService {
     const infoType = matchArr[matchArr.length - 3];
     const serviceId = matchArr[matchArr.length - 2];
     const service = await this.sellersHubBotApi.getService(+serviceId, ctx);
+
     if (infoType === 'reviews') {
+      const user = await this.userService.findOne({
+        telegram_id: ctx.update.callback_query.from.id,
+      });
+      if (!user) {
+        if (
+          ctx.update.callback_query.message.chat.id ==
+          this.configService.get('INFOGRAPHIC_CHAT_ID')
+        ) {
+          await ctx.answerCbQuery('', {
+            url: `${this.configService.get('BOT_URL')}?start=${
+              Utm.chat_design
+            }`,
+          });
+        }
+        if (
+          ctx.update.callback_query.message.chat.id ==
+          this.configService.get('MANAGER_CHAT_ID')
+        ) {
+          await ctx.answerCbQuery('', {
+            url: `${this.configService.get('BOT_URL')}?start=${
+              Utm.chat_managers
+            }`,
+          });
+        }
+      }
+
       await ctx.answerCbQuery(
         'Отзывы отправлены в чат бот Sellershub.\nДля просмотра отзывов перейдите в чат и нажмите кнопку "Посмотреть отзывы"',
         {
