@@ -2,12 +2,14 @@ import { ConfigService } from '@nestjs/config';
 import { Action, Ctx, Message, On, Update } from 'nestjs-telegraf';
 import { Actions } from 'src/enum/actions.enum';
 import { Commands } from 'src/enum/commands.enum';
+import { FastReviewService } from 'src/fast-review/fast-review.service';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { LoggerService } from 'src/logger/logger.service';
 import {
   getSignInCredentials as getSignInCredentials,
   INVALID_EMAIL,
 } from 'src/message';
+import { UserService } from 'src/user/user.service';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 import { getInlineButtons } from 'src/utils/get-buttons.utils';
 import { chatListener } from './helpers/chat-listener.helper';
@@ -18,6 +20,8 @@ export class RegisterUpdate {
     private readonly sellersBotApi: SellersHubBotApi,
     private readonly loggerService: LoggerService,
     private readonly configService: ConfigService,
+    private readonly fastReviewService: FastReviewService,
+    private readonly userService: UserService,
   ) {}
 
   @Action(Commands.register)
@@ -73,6 +77,12 @@ export class RegisterUpdate {
     //chat listeners
     const listener = await chatListener(ctx, this.configService);
     // --
+    if (ctx.session.action === Actions.review) {
+      const reviewMessage = await this.fastReviewService.createReviewMessage(
+        ctx,
+        message,
+      );
+    }
     if (
       ctx.session.action === Actions['create-service'] &&
       ctx.session.create_service_ctx.image

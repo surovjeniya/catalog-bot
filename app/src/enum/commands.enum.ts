@@ -13,4 +13,5 @@ export enum Commands {
   menu = 'menu',
   'create-via-bot' = 'create-via-bot',
   'create-via-site' = 'create-via-site',
+  review = 'review',
 }

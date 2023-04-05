@@ -48,6 +48,24 @@ export class SellersHubBotApi {
     },
   });
 
+  async createReview(ctx: TelegrafContext) {
+    const { message, rating, serviceId } = ctx.session.fast_review;
+
+    try {
+      const { data: review } = await this.$axios.post(`/reviews`, {
+        data: {
+          description: message,
+          rating,
+          title: message,
+          service: serviceId,
+        },
+      });
+    } catch (e) {
+      await ctx.reply(JSON.stringify(ctx.session.fast_review));
+      await ctx.reply('Нужно делать бэк');
+    }
+  }
+
   async getMyProfile(ctx: TelegrafContext): Promise<IMyProfile> {
     try {
       const { data: profile } = await this.$axios.get<IMyProfile>(

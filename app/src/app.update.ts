@@ -7,45 +7,49 @@ import { startMenu } from './menu/start.menu';
 import { UserService } from './user/user.service';
 import { LoggerService } from './logger/logger.service';
 import { Utm } from './user/user.entity';
+import { FastReviewService } from './fast-review/fast-review.service';
+import { Actions } from './enum/actions.enum';
 
 @Update()
 export class AppUpdate {
   constructor(
     private readonly userService: UserService,
     private readonly loggerService: LoggerService,
+    private readonly fastReviewService: FastReviewService,
   ) {}
-  @Action(Commands.start)
-  async startAction(@Ctx() ctx: TelegrafContext) {
-    const { first_name, id, is_bot, language_code, last_name, username } =
-      ctx.session.from;
-    ctx.session.from = {
-      first_name,
-      id,
-      is_bot,
-      language_code,
-      last_name,
-      username,
-    };
-    ctx.session.action = null;
-    ctx.session.create_service_ctx = {
-      chatId: null,
-      description: null,
-      image: null,
-      categorySlug: null,
-      price: null,
-      serviceId: null,
-    };
-    await ctx.replyWithPhoto(
-      'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
-      {
-        caption: startMessage(ctx),
-        reply_markup: {
-          inline_keyboard: startMenu(ctx),
-        },
-        parse_mode: 'HTML',
-      },
-    );
-  }
+
+  // @Action(Commands.start)
+  // async startAction(@Ctx() ctx: TelegrafContext) {
+  //   const { first_name, id, is_bot, language_code, last_name, username } =
+  //     ctx.session.from;
+  //   ctx.session.from = {
+  //     first_name,
+  //     id,
+  //     is_bot,
+  //     language_code,
+  //     last_name,
+  //     username,
+  //   };
+  //   ctx.session.action = null;
+  //   ctx.session.create_service_ctx = {
+  //     chatId: null,
+  //     description: null,
+  //     image: null,
+  //     categorySlug: null,
+  //     price: null,
+  //     serviceId: null,
+  //   };
+  //   await ctx.replyWithPhoto(
+  //     'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
+  //     {
+  //       caption: startMessage(ctx),
+  //       reply_markup: {
+  //         inline_keyboard: startMenu(ctx),
+  //       },
+  //       parse_mode: 'HTML',
+  //     },
+  //   );
+  // }
 
   @Command(Commands.signout)
   async singOut(@Ctx() ctx: TelegrafContext) {
@@ -69,7 +73,6 @@ export class AppUpdate {
 
   @Command(Commands.start)
   async start(@Ctx() ctx: TelegrafContext) {
-    const utm = ctx.update.message.text.split(' ')[1];
     const { first_name, id, is_bot, language_code, last_name, username } =
       ctx.from;
     ctx.session.from = {
@@ -89,6 +92,21 @@ export class AppUpdate {
       price: null,
       serviceId: null,
     };
+    const utm = ctx.update.message.text.split(' ')[1];
+    if (utm && utm.match('fast_review')) {
+      const serviceId = utm.split('_')[2];
+      ctx.session.fast_review = {
+        message: null,
+        rating: null,
+        username: null,
+        serviceId: Number(serviceId),
+      };
+      ctx.session.action = Actions.review;
+      const fastReview = await this.fastReviewService.createFastReview(
+        ctx,
+        Number(serviceId),
+      );
+    }
     const user = await this.userService.findOne({ telegram_id: id });
     if (!user) {
       await this.userService.create({
@@ -101,15 +119,18 @@ export class AppUpdate {
         utm: utm && (<any>Object).values(Utm).includes(utm) ? utm : null,
       });
     }
-    await ctx.replyWithPhoto(
-      'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
-      {
-        caption: startMessage(ctx),
-        reply_markup: {
-          inline_keyboard: startMenu(ctx),
+
+    if (!utm || (utm && !utm.match('fast_review'))) {
+      await ctx.replyWithPhoto(
+        'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
+        {
+          caption: startMessage(ctx),
+          reply_markup: {
+            inline_keyboard: startMenu(ctx),
+          },
+          parse_mode: 'HTML',
         },
-        parse_mode: 'HTML',
-      },
-    );
+      );
+    }
   }
 }
