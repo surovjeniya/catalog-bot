@@ -119,7 +119,7 @@ export class AppUpdate {
         utm: utm && (<any>Object).values(Utm).includes(utm) ? utm : null,
       });
     }
-
+    //dskmdlsd
     if (!utm || (utm && !utm.match('fast_review'))) {
       await ctx.replyWithPhoto(
         'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
