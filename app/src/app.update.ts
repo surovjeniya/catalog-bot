@@ -102,6 +102,7 @@ export class AppUpdate {
         serviceId: Number(serviceId),
       };
       ctx.session.action = Actions.review;
+
       const fastReview = await this.fastReviewService.createFastReview(
         ctx,
         Number(serviceId),

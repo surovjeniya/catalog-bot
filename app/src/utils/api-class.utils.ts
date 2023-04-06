@@ -60,6 +60,7 @@ export class SellersHubBotApi {
           username: ctx.from.username ? ctx.from.username : ctx.from.id,
         },
       });
+      return review;
     } catch (e) {}
   }
 
