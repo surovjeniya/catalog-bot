@@ -10,10 +10,19 @@ import { SearchFulfillmentDto } from './dto/search-fulfillment.dto';
 export class InviteUserService {
   constructor(@InjectBot() private readonly bot: Telegraf<TelegrafContext>) {}
 
-  async bidFulfillment(dto: BidFulFillmentDto) {
-    return {
-      ...dto,
-    };
+  async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
+    const message = `
+    Фуллфилмент: связаться\n
+    Название: ${service.name}\n
+    Телефон: ${contacts.phone ? contacts.phone : 'отсутствует'}\n
+    Telegram: ${
+      contacts.telegram_username ? contacts.telegram_username : 'отсутствует'
+    }\n
+    Whatsapp: ${contacts.whatsapp ? contacts.whatsapp : 'отсутствует'}\n
+    Email: ${contacts.email ? contacts.email : 'отсутствует'}\n
+    Id услуги: ${service.id}
+    `;
+    return await this.bot.telegram.sendMessage(54452505, message);
   }
 
   async searchFulfillment(dto: SearchFulfillmentDto) {
