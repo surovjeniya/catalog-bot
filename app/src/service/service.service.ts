@@ -216,7 +216,15 @@ export class ServiceService {
   }
 
   async sendMessageToChat(@Ctx() ctx: TelegrafContext) {
+    await this.loggerService.updateLog({
+      action: Commands['send-to-chat'],
+      day: new Date().toDateString(),
+      telegram_id: ctx.from.id,
+      username: ctx.from.username,
+    });
+
     const { serviceId, chatId, categorySlug } = ctx.session.create_service_ctx;
+
     let review = {
       data: [],
     };

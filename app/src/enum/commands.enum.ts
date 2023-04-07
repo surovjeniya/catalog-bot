@@ -14,4 +14,5 @@ export enum Commands {
   'create-via-bot' = 'create-via-bot',
   'create-via-site' = 'create-via-site',
   review = 'review',
+  'send-to-chat' = 'send-to-chat',
 }

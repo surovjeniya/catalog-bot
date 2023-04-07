@@ -249,6 +249,7 @@ export class SellersHubBotApi {
           email,
           password,
           registered_from_bot: true,
+          telegram_id: ctx.from.id,
         },
       );
       return registerData;

@@ -4,4 +4,5 @@ export enum Actions {
   'create-service' = 'create-service',
   'personal-specialist' = 'personal-specialist',
   review = 'review',
+  'send-to-chat' = 'send-to-chat',
 }
