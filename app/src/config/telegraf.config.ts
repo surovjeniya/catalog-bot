@@ -5,7 +5,12 @@ import * as path from 'path';
 
 const sessions = new LocalSession({
   database: path.join('sessions.json'),
+  property: 'session',
+  storage: LocalSession.storageFileAsync,
 });
+
+const s = sessions.getSession('');
+console.log(s);
 
 export const getTelegrafConfig = (
   configService: ConfigService,

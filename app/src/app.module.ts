@@ -1,25 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TelegrafModule } from 'nestjs-telegraf';
-import { AppUpdate } from './app.update';
-import { getTelegrafConfig } from './config/telegraf.config';
-import { RegisterUpdate } from './update/register.update';
-import { SellersHubBotApi } from './utils/api-class.utils';
-import * as Joi from 'joi';
+import { ConfigService, ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as Joi from 'joi';
+import { TelegrafModule } from 'nestjs-telegraf';
+import { CommandModule } from './command/command.module';
+import { getTelegrafConfig } from './config/telegraf.config';
 import { getTypeOrmConfig } from './config/typeorm.config';
-import { UserModule } from './user/user.module';
-import { LoggerModule } from './logger/logger.module';
-import { InviteUserModule } from './invite-user/invite-user.module';
-import { AiModule } from './ai/ai.module';
-import { ChatModule } from './chat/chat.module';
-import { CatalogModule } from './catalog/catalog.module';
-import { ServiceModule } from './service/service.module';
-import { MenuModule } from './menus/menu.module';
-import { PersonalModule } from './personal/personal.module';
-import { SupportModule } from './support/support.module';
-import { SignInModule } from './sign-in/sign-in.module';
-import { FastReviewModule } from './fast-review/fast-review.module';
+import { OnModule } from './on/on.module';
+import { Api } from './utils/api.utils';
 
 @Module({
   imports: [
@@ -52,19 +40,9 @@ import { FastReviewModule } from './fast-review/fast-review.module';
         PORT: Joi.number().required(),
       }),
     }),
-    FastReviewModule,
-    MenuModule,
-    ServiceModule,
-    PersonalModule,
-    CatalogModule,
-    ChatModule,
-    AiModule,
-    InviteUserModule,
-    UserModule,
-    LoggerModule,
-    SupportModule,
-    SignInModule,
+    CommandModule,
+    OnModule,
   ],
-  providers: [AppUpdate, RegisterUpdate, SellersHubBotApi],
+  providers: [Api],
 })
 export class AppModule {}
