@@ -16,6 +16,10 @@ import { Commands } from 'src/enum/commands.enum';
 import { ICategories } from 'src/interface/categories.interface';
 import { ICategory } from 'src/interface/category.interface';
 import { IMyProfile } from 'src/interface/my-profile.interface';
+import {
+  RegisterTelegramDtoRequest,
+  RegisterTelegramDtoResponse,
+} from 'src/interface/register-with-telegram.interface';
 import { IRegisterData } from 'src/interface/register.interface';
 import { IService } from 'src/interface/service.interface';
 import { IServices } from 'src/interface/services.interface';
@@ -233,6 +237,16 @@ export class SellersHubBotApi {
         throw new BadRequestException();
       }
     }
+  }
+
+  async registerWithTelegram(dto: RegisterTelegramDtoRequest) {
+    try {
+      const { data } = await this.$axios.post<RegisterTelegramDtoResponse>(
+        '/telegram-users/registration',
+        dto,
+      );
+      return data;
+    } catch (e) {}
   }
 
   async registration(

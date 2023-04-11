@@ -20,6 +20,7 @@ import { PersonalModule } from './personal/personal.module';
 import { SupportModule } from './support/support.module';
 import { SignInModule } from './sign-in/sign-in.module';
 import { FastReviewModule } from './fast-review/fast-review.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { FastReviewModule } from './fast-review/fast-review.module';
         PORT: Joi.number().required(),
       }),
     }),
+    AuthModule,
     FastReviewModule,
     MenuModule,
     ServiceModule,
