@@ -4,9 +4,10 @@ import * as LocalSession from 'telegraf-session-local';
 import * as path from 'path';
 
 const sessions = new LocalSession({
-  database: (process.env.NODE_ENV = 'production'
-    ? path.join('sessions.json')
-    : path.join('sessions.development.json')),
+  database:
+    process.env.NODE_ENV === 'production'
+      ? path.join('sessions.json')
+      : path.join('sessions.development.json'),
 });
 
 export const getTelegrafConfig = (

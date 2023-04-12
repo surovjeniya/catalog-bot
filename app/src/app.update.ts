@@ -9,6 +9,8 @@ import { LoggerService } from './logger/logger.service';
 import { Utm } from './user/user.entity';
 import { FastReviewService } from './fast-review/fast-review.service';
 import { Actions } from './enum/actions.enum';
+import { AuthUpdate } from './auth/auth.update';
+import { SellersHubBotApi } from './utils/api-class.utils';
 
 @Update()
 export class AppUpdate {
@@ -16,6 +18,8 @@ export class AppUpdate {
     private readonly userService: UserService,
     private readonly loggerService: LoggerService,
     private readonly fastReviewService: FastReviewService,
+    private readonly authUpdate: AuthUpdate,
+    private readonly api: SellersHubBotApi,
   ) {}
 
   // @Action(Commands.start)
@@ -123,19 +127,40 @@ export class AppUpdate {
     }
 
     if (!utm || (utm && !utm.match('fast_review'))) {
-      // 1.check user by phone
+      // 1.check user by tg_id
+      const user = await this.api.getUserByTelegramId(ctx.from.id);
       // 2.if user login user ,save jwt to session
       // if !user register user and save jwt
-      await ctx.replyWithPhoto(
-        'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
-        {
-          caption: startMessage(ctx),
-          reply_markup: {
-            inline_keyboard: startMenu(ctx),
+      if (!user) {
+        await ctx.reply(
+          'Добро пожаловать.\nДля продолжения работы кажмите кнопку "Показать контакт".',
+          {
+            reply_markup: {
+              resize_keyboard: true,
+              keyboard: [
+                [
+                  {
+                    text: 'Показать контакт',
+                    request_contact: true,
+                  },
+                ],
+              ],
+            },
           },
-          parse_mode: 'HTML',
-        },
-      );
+        );
+      }
+      if (user || ctx.session.jwt) {
+        await ctx.replyWithPhoto(
+          'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
+          {
+            caption: startMessage(ctx),
+            reply_markup: {
+              inline_keyboard: startMenu(ctx),
+            },
+            parse_mode: 'HTML',
+          },
+        );
+      }
     }
   }
 }

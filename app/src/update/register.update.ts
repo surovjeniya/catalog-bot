@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { Action, Ctx, Message, On, Update } from 'nestjs-telegraf';
+import { AuthService } from 'src/auth/auth.service';
 import { Actions } from 'src/enum/actions.enum';
 import { Commands } from 'src/enum/commands.enum';
 import { FastReviewService } from 'src/fast-review/fast-review.service';
@@ -22,6 +23,7 @@ export class RegisterUpdate {
     private readonly configService: ConfigService,
     private readonly fastReviewService: FastReviewService,
     private readonly userService: UserService,
+    private readonly authService: AuthService,
   ) {}
 
   @Action(Commands.register)
@@ -52,8 +54,13 @@ export class RegisterUpdate {
     );
   }
 
+  @On('contact')
+  async getContact(@Ctx() ctx: TelegrafContext) {
+    const contact = await this.authService.getContact(ctx);
+  }
+
   @On('photo')
-  async test(@Ctx() ctx: TelegrafContext, @Message('photo') photo: any) {
+  async getPhoto(@Ctx() ctx: TelegrafContext, @Message('photo') photo: any) {
     if (ctx.update.message.chat.type === 'supergroup') {
       const listener = await chatListener(ctx, this.configService);
     }

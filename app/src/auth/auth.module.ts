@@ -6,5 +6,6 @@ import { AuthUpdate } from './auth.update';
 @Module({
   imports: [],
   providers: [AuthUpdate, AuthService, SellersHubBotApi],
+  exports: [AuthService, AuthUpdate],
 })
 export class AuthModule {}

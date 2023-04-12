@@ -20,7 +20,37 @@
           "categorySlug": null,
           "price": null,
           "serviceId": null
-        }
+        },
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM3MCwiaWF0IjoxNjgxMjkwMzk3LCJleHAiOjE2ODM4ODIzOTd9.zzdx49tHeNVdTJOA67EmXt-tvqTw15BuZQ790x8wp9s"
+      }
+    },
+    {
+      "id": "629558387:629558387",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Yahor",
+          "id": 629558387,
+          "is_bot": false,
+          "language_code": "ru",
+          "username": "yahor_dashko"
+        },
+        "action": null,
+        "create_service_ctx": {
+          "chatId": null,
+          "description": null,
+          "image": null,
+          "categorySlug": null,
+          "price": null,
+          "serviceId": null
+        },
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM2NCwiaWF0IjoxNjgxMjg4ODA0LCJleHAiOjE2ODM4ODA4MDR9.Q0l-qcqmw7OjR3u36lI6DcMvUKJw86lZW_K7QgSa7LM"
+      }
+    },
+    {
+      "id": "-1001969828003:671646655",
+      "data": {
+        "__scenes": {}
       }
     }
   ]

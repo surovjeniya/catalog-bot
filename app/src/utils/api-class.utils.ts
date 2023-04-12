@@ -52,6 +52,15 @@ export class SellersHubBotApi {
     },
   });
 
+  async getUserByTelegramId(telegram_id: number) {
+    try {
+      const { data: user } = await this.$axios.get(
+        `/user-phones/get-by-tg/${telegram_id}`,
+      );
+      return user;
+    } catch (e) {}
+  }
+
   async createReview(ctx: TelegrafContext) {
     const { message, rating, serviceId } = ctx.session.fast_review;
 
@@ -243,9 +252,20 @@ export class SellersHubBotApi {
     try {
       const { data } = await this.$axios.post<RegisterTelegramDtoResponse>(
         '/telegram-users/registration',
-        dto,
+        {
+          data: { ...dto },
+        },
       );
       return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async getUserByPhone(phone: string) {
+    try {
+      const { data: user } = await this.$axios.get(`/user-phone/${phone}`);
+      return user;
     } catch (e) {}
   }
 
