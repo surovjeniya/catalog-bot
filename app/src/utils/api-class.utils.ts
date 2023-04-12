@@ -16,6 +16,10 @@ import { Commands } from 'src/enum/commands.enum';
 import { ICategories } from 'src/interface/categories.interface';
 import { ICategory } from 'src/interface/category.interface';
 import { IMyProfile } from 'src/interface/my-profile.interface';
+import {
+  RegisterTelegramDtoRequest,
+  RegisterTelegramDtoResponse,
+} from 'src/interface/register-with-telegram.interface';
 import { IRegisterData } from 'src/interface/register.interface';
 import { IService } from 'src/interface/service.interface';
 import { IServices } from 'src/interface/services.interface';
@@ -47,6 +51,15 @@ export class SellersHubBotApi {
       'Content-Type': 'application/json',
     },
   });
+
+  async getUserByTelegramId(telegram_id: number) {
+    try {
+      const { data: user } = await this.$axios.get(
+        `/user-phones/get-by-tg/${telegram_id}`,
+      );
+      return user;
+    } catch (e) {}
+  }
 
   async createReview(ctx: TelegrafContext) {
     const { message, rating, serviceId } = ctx.session.fast_review;
@@ -233,6 +246,27 @@ export class SellersHubBotApi {
         throw new BadRequestException();
       }
     }
+  }
+
+  async registerWithTelegram(dto: RegisterTelegramDtoRequest) {
+    try {
+      const { data } = await this.$axios.post<RegisterTelegramDtoResponse>(
+        '/telegram-users/registration',
+        {
+          data: { ...dto },
+        },
+      );
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async getUserByPhone(phone: string) {
+    try {
+      const { data: user } = await this.$axios.get(`/user-phone/${phone}`);
+      return user;
+    } catch (e) {}
   }
 
   async registration(

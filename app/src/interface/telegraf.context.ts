@@ -2,6 +2,7 @@ import { Actions } from 'src/enum/actions.enum';
 import { Context } from 'telegraf';
 import {
   CallbackQuery,
+  Contact,
   Message,
   Update,
 } from 'telegraf/typings/core/types/typegram';
@@ -24,6 +25,7 @@ export interface TelegrafContext extends Context {
     message: Message & {
       date: number;
       text: string;
+      contact: Contact;
     };
   };
   session: {

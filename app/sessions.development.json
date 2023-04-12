@@ -1,0 +1,27 @@
+{
+  "sessions": [
+    {
+      "id": "671646655:671646655",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Evgeniy",
+          "id": 671646655,
+          "is_bot": false,
+          "language_code": "ru",
+          "last_name": "Surov",
+          "username": "surovjeniy"
+        },
+        "action": null,
+        "create_service_ctx": {
+          "chatId": null,
+          "description": null,
+          "image": null,
+          "categorySlug": null,
+          "price": null,
+          "serviceId": null
+        }
+      }
+    }
+  ]
+}
