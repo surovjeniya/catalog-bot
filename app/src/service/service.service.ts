@@ -155,10 +155,6 @@ export class ServiceService {
               getInlineButtons(
                 [
                   {
-                    text: 'Да',
-                    data: 'create-via-bot',
-                  },
-                  {
                     text: '↩️ Вернуться в главное меню.',
                     data: Commands.menu,
                   },
@@ -172,10 +168,6 @@ export class ServiceService {
             'У вас нет созданных услуг на sellershub.ru.Для публикации с сайта необходимо:\n1.Зайти на сайт.\n2.Создать услугу в категории "Дизайнеры карточек товара" либо "Менеджеры личного кабинета"\n3.После создания услуги перейти в бот и разместить услугу используя функцию "опубликовать через сайт"',
             getInlineButtons(
               [
-                {
-                  text: 'Да',
-                  data: 'create-via-bot',
-                },
                 {
                   text: '↩️ Вернуться в главное меню.',
                   data: Commands.menu,
