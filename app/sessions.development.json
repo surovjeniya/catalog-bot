@@ -20,7 +20,95 @@
           "categorySlug": null,
           "price": null,
           "serviceId": null
+        },
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM3NCwiaWF0IjoxNjgxMzY4OTgwLCJleHAiOjE2ODM5NjA5ODB9.np5-lCS3u_bLbohOnmeaPlNRm1pmpWJy3B-bEroxlnw"
+      }
+    },
+    {
+      "id": "1306170951:1306170951",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Jay",
+          "id": 1306170951,
+          "is_bot": false,
+          "language_code": "ru",
+          "last_name": "P",
+          "username": "JayPr0"
+        },
+        "action": "create-service",
+        "create_service_ctx": {
+          "categorySlug": "dizajnery",
+          "chatId": "-1001969828003",
+          "description": null,
+          "image": null,
+          "price": null,
+          "serviceId": null
+        },
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM3MiwiaWF0IjoxNjgxMzA3NjkzLCJleHAiOjE2ODM4OTk2OTN9.wG8xeZuGE3zI_ffapOFhXUS1mjrKWy8SYp9C2arPIQI"
+      }
+    },
+    {
+      "id": "-1001726971674:1306170951",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:671646655",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Evgeniy",
+          "id": 671646655,
+          "is_bot": false,
+          "language_code": "ru",
+          "last_name": "Surov",
+          "username": "surovjeniy"
+        },
+        "action": null,
+        "create_service_ctx": {
+          "chatId": null,
+          "description": null,
+          "image": null,
+          "categorySlug": null,
+          "price": null,
+          "serviceId": null
         }
+      }
+    },
+    {
+      "id": "54452505:54452505",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Eugene",
+          "id": 54452505,
+          "is_bot": false,
+          "language_code": "en",
+          "username": "koiEugene"
+        },
+        "action": "review",
+        "create_service_ctx": {
+          "chatId": null,
+          "description": null,
+          "image": null,
+          "categorySlug": null,
+          "price": null,
+          "serviceId": null
+        },
+        "fast_review": {
+          "message": null,
+          "rating": null,
+          "username": null,
+          "serviceId": 1712
+        }
+      }
+    },
+    {
+      "id": "-1001726971674:5906347459",
+      "data": {
+        "__scenes": {}
       }
     }
   ]

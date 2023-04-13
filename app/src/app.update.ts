@@ -1,4 +1,4 @@
-import { Action, Command, Ctx, Update } from 'nestjs-telegraf';
+import { Command, Ctx, Update } from 'nestjs-telegraf';
 import { Commands } from './enum/commands.enum';
 import { TelegrafContext } from './interface/telegraf.context';
 import { getInlineButtons } from './utils/get-buttons.utils';
@@ -9,7 +9,6 @@ import { LoggerService } from './logger/logger.service';
 import { Utm } from './user/user.entity';
 import { FastReviewService } from './fast-review/fast-review.service';
 import { Actions } from './enum/actions.enum';
-import { AuthUpdate } from './auth/auth.update';
 import { SellersHubBotApi } from './utils/api-class.utils';
 
 @Update()
@@ -18,7 +17,6 @@ export class AppUpdate {
     private readonly userService: UserService,
     private readonly loggerService: LoggerService,
     private readonly fastReviewService: FastReviewService,
-    private readonly authUpdate: AuthUpdate,
     private readonly api: SellersHubBotApi,
   ) {}
 
@@ -133,7 +131,7 @@ export class AppUpdate {
       // if !user register user and save jwt
       if (!user) {
         await ctx.reply(
-          'Добро пожаловать.\nДля продолжения работы кажмите кнопку "Показать контакт".',
+          'Для мгновенной регистрации нам необходим ваш номер телефона.\nПожалуйста, нажмите на кнопку ниже.',
           {
             reply_markup: {
               resize_keyboard: true,

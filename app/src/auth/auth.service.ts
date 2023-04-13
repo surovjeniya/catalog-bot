@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { SellersHubBotApi } from 'src/utils/api-class.utils';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly api: SellersHubBotApi) {}
+  constructor(
+    private readonly api: SellersHubBotApi,
+    private readonly configService: ConfigService,
+  ) {}
 
   async getContact(ctx: TelegrafContext) {
     const register = await this.registration(ctx);
@@ -33,8 +37,12 @@ export class AuthService {
     });
     if (user) {
       ctx.session.jwt = user.jwt;
-      await ctx.reply(
-        `Спасибо за регистрацию. Ваши данные для входа на сайт:\nТелефон: ${ctx.update.message.contact.phone_number}\nПароль: ${password}`,
+      await ctx.replyWithHTML(
+        `Вы успешно зарегистрировались!\nВаш логин: ${
+          ctx.update.message.contact.phone_number
+        }\nВаш пароль: ${password}\nИспользуйте эти данные для авторизации на <a href='${this.configService.get(
+          'WEB',
+        )}'>sellershub.ru.</a>\nТеперь вы можете быстро публиковать услугу в чате через tg или сайт.`,
         {
           reply_markup: {
             remove_keyboard: true,
