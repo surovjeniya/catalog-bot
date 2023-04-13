@@ -13,6 +13,11 @@ export class LoggerService {
     private readonly loggerRepository: Repository<LoggerEntity>,
   ) {}
 
+  async find(): Promise<LoggerEntity[]> {
+    const logs = await this.loggerRepository.find();
+    return logs;
+  }
+
   async create(dto: CreateLogDto): Promise<LoggerEntity> {
     const log = this.loggerRepository.create({
       ...dto,

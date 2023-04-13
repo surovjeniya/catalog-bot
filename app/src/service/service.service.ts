@@ -42,34 +42,37 @@ export class ServiceService {
     ctx.session.action = Actions['create-service'];
     this.clearServiceData(ctx);
 
-    ctx.reply('Выберите чат для публикации вашей услуги.', {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              callback_data: `/create-service/dizajnery/${this.configService.get(
-                'INFOGRAPHIC_CHAT_ID',
-              )}`,
-              text: 'Инфорграфика для марткеплейсов от Селлерсхаб',
-            },
+    ctx.reply(
+      'Выберите чат, в котором  хотите разместить услугу:\nдизайнеры инфографики или менеджеры ЛК?',
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                callback_data: `/create-service/dizajnery/${this.configService.get(
+                  'INFOGRAPHIC_CHAT_ID',
+                )}`,
+                text: 'Инфорграфика для марткеплейсов от Селлерсхаб',
+              },
+            ],
+            [
+              {
+                callback_data: `/create-service/menedzhery/${this.configService.get(
+                  'MANAGER_CHAT_ID',
+                )}`,
+                text: 'Менеджеры ЛК от Селлерсхаб',
+              },
+            ],
+            [
+              {
+                text: '↩️ Вернуться в меню',
+                callback_data: Commands.menu,
+              },
+            ],
           ],
-          [
-            {
-              callback_data: `/create-service/menedzhery/${this.configService.get(
-                'MANAGER_CHAT_ID',
-              )}`,
-              text: 'Менеджеры ЛК от Селлерсхаб',
-            },
-          ],
-          [
-            {
-              text: '↩️ Вернуться в меню',
-              callback_data: Commands.menu,
-            },
-          ],
-        ],
+        },
       },
-    });
+    );
   }
 
   async createService(@Ctx() ctx: TelegrafContext) {
@@ -81,16 +84,17 @@ export class ServiceService {
     ctx.session.create_service_ctx.categorySlug = slug;
     if (jwt) {
       await ctx.reply(
-        'Использовать профиль Sellershub?',
+        'Создайте услугу через бот или опубликуйте существующую на sellershub.ru.',
         getInlineButtons(
           [
             {
               data: '/use-sh-profile/yes',
-              text: 'Да',
+              text: 'Опубликовать через сайт',
             },
             {
-              data: '/use-sh-profile/no',
-              text: 'Нет',
+              // data: '/use-sh-profile/no',
+              data: 'create-via-bot',
+              text: 'Опубликовать через ТГ',
             },
           ],
           1,
@@ -335,7 +339,7 @@ export class ServiceService {
       );
     }
     await ctx.reply(
-      'Услуга опубликована.',
+      'Ваша услуга успешно опубликована! Если хотите разместить еще одну, нажмите "вернуться в главное меню',
       getInlineButtons([
         {
           data: Commands.menu,

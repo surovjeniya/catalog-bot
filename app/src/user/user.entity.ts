@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 
 export enum Utm {
+  chat_good_cards_designer = 'chat_good_cards_designer',
   chat_design = 'chat_design',
   chat_managers = 'chat_managers',
   chat_main = 'chat_main',

@@ -21,9 +21,12 @@ import { SupportModule } from './support/support.module';
 import { SignInModule } from './sign-in/sign-in.module';
 import { FastReviewModule } from './fast-review/fast-review.module';
 import { AuthModule } from './auth/auth.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { MailingModule } from './mailing/mailing.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>
@@ -53,6 +56,7 @@ import { AuthModule } from './auth/auth.module';
         PORT: Joi.number().required(),
       }),
     }),
+    MailingModule,
     AuthModule,
     FastReviewModule,
     MenuModule,
