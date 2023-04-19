@@ -15,16 +15,16 @@ export class InviteUserService {
   ) {}
 
   async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
-    const username = service.profile.contact_telegram
-      ? service.profile.contact_telegram.split('/')[1]
-      : null;
-    let userId: number = null;
-    if (username) {
-      const user = await this.userService.findOne({ username });
-      if (user && user.telegram_id) {
-        userId = user.telegram_id;
-      }
-    }
+    // const username = service.profile.contact_telegram
+    //   ? service.profile.contact_telegram.split('/')[1]
+    //   : null;
+    // let userId: number = null;
+    // if (username) {
+    //   const user = await this.userService.findOne({ username });
+    //   if (user && user.telegram_id) {
+    //     userId = user.telegram_id;
+    //   }
+    // }
 
     const message = `
     Фуллфилмент: связаться\n
@@ -37,9 +37,9 @@ export class InviteUserService {
     Email: ${contacts.email ? contacts.email : 'отсутствует'}\n
     Id услуги: ${service.id}
     `;
-    if (userId) {
-      await this.bot.telegram.sendMessage(userId, message);
-    }
+    // if (userId) {
+    //   await this.bot.telegram.sendMessage(userId, message);
+    // }
     return await this.bot.telegram.sendMessage(54452505, message);
   }
 
