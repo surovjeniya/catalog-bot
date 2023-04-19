@@ -47,21 +47,29 @@ export class InviteUserService {
     const message = `
     Фуллфилмент:заявка на расчёт\n
     Местоположение: ${
-      dto.locations.length ? JSON.stringify(dto.locations) : 'отсутствует'
+      dto.locations && dto.locations.length
+        ? JSON.stringify(dto.locations)
+        : 'отсутствует'
     } \n
     Услуги: ${
-      dto.services.length ? JSON.stringify(dto.services) : 'отсутствует'
+      dto.services && dto.services.length
+        ? JSON.stringify(dto.services)
+        : 'отсутствует'
     } \n
     Упаковка: ${
-      dto.packaging.length ? JSON.stringify(dto.packaging) : 'отсутствует'
+      dto.packaging && dto.packaging.length
+        ? JSON.stringify(dto.packaging)
+        : 'отсутствует'
     } \n
     Ценовой сегмент: ${
-      dto.price_segment.length
+      dto.price_segment && dto.price_segment.length
         ? JSON.stringify(dto.price_segment)
         : 'отсутствует'
     } \n
     Дополнительная информация: ${
-      dto.description.length ? JSON.stringify(dto.description) : 'отсутствует'
+      dto.description && dto.description.length
+        ? JSON.stringify(dto.description)
+        : 'отсутствует'
     } \n
     Контакты: ${dto.contacts ? JSON.stringify(dto.contacts) : 'отсутствует'}
     `;
