@@ -11,6 +11,8 @@ export class InviteUserService {
   constructor(@InjectBot() private readonly bot: Telegraf<TelegrafContext>) {}
 
   async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
+    console.log(service);
+
     const message = `
     Фуллфилмент: связаться\n
     Название: ${service.name}\n
@@ -51,7 +53,6 @@ export class InviteUserService {
   }
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
-    console.log(name, phone, telegram_username, url);
     return await this.bot.telegram.sendMessage(
       54452505,
       `Фуллфилмент:персональный подбор\n
