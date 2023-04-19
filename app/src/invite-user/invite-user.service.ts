@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
 import { TelegrafContext } from 'src/interface/telegraf.context';
+import { UserService } from 'src/user/user.service';
 import { Telegraf } from 'telegraf';
 import { BidFulFillmentDto } from './dto/bid-fulfillment.dto';
 import { InviteUserDto } from './dto/invite-user.dto';
@@ -8,10 +9,22 @@ import { SearchFulfillmentDto } from './dto/search-fulfillment.dto';
 
 @Injectable()
 export class InviteUserService {
-  constructor(@InjectBot() private readonly bot: Telegraf<TelegrafContext>) {}
+  constructor(
+    @InjectBot() private readonly bot: Telegraf<TelegrafContext>,
+    private readonly userService: UserService,
+  ) {}
 
   async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
-    console.log(service);
+    const username = service.profile.contact_telegram
+      ? service.profile.contact_telegram.split('/')[1]
+      : null;
+    let userId: number = null;
+    if (username) {
+      const user = await this.userService.findOne({ username });
+      if (user && user.telegram_id) {
+        userId = user.telegram_id;
+      }
+    }
 
     const message = `
     Фуллфилмент: связаться\n
@@ -24,6 +37,9 @@ export class InviteUserService {
     Email: ${contacts.email ? contacts.email : 'отсутствует'}\n
     Id услуги: ${service.id}
     `;
+    if (userId) {
+      await this.bot.telegram.sendMessage(userId, message);
+    }
     return await this.bot.telegram.sendMessage(54452505, message);
   }
 

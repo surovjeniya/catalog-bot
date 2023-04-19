@@ -71,6 +71,7 @@ export interface Service {
   recommended_sellershub: boolean;
   sellershub_rate: number;
   sellershub_title: string;
+  profile: Profile;
 }
 
 export interface Counter {
@@ -100,4 +101,8 @@ export interface Contacts {
   phone: string;
   email: string;
   whatsapp: string;
+}
+
+export interface Profile {
+  contact_telegram: 't.me/mpr_sales';
 }
