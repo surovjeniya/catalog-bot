@@ -56,7 +56,7 @@ import { MailingModule } from './mailing/mailing.module';
         PORT: Joi.number().required(),
       }),
     }),
-    MailingModule,
+    // MailingModule,
     AuthModule,
     FastReviewModule,
     MenuModule,
