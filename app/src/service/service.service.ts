@@ -352,6 +352,7 @@ export class ServiceService {
 
   async sendContacts(@Ctx() ctx: TelegrafContext) {
     const user = await this.userService.findOne({
+      //@ts-ignore
       telegram_id: ctx.update.callback_query.from.id,
     });
     const matchArr = ctx.match.input.split('/');
@@ -403,6 +404,7 @@ export class ServiceService {
 
     if (infoType === 'reviews') {
       const user = await this.userService.findOne({
+        //@ts-ignore
         telegram_id: ctx.update.callback_query.from.id,
       });
       if (!user) {

@@ -23,7 +23,7 @@ export class UserEntity {
   id: number;
 
   @Column({ type: 'bigint' })
-  telegram_id: number;
+  telegram_id: string;
 
   @Column()
   is_bot: boolean;

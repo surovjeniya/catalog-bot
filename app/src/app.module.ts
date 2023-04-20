@@ -30,8 +30,6 @@ import { MailingModule } from './mailing/mailing.module';
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        supportBigNumbers: true,
-        bigNumberStrings: false,
         type: 'postgres',
         database: configService.get('POSTGRES_DB'),
         username: configService.get('POSTGRES_USER'),

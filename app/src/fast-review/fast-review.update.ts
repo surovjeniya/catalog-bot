@@ -40,6 +40,7 @@ export class FastReviewUpdate {
         );
 
         const user = await this.userService.findOne({
+          //@ts-ignore
           telegram_id: ctx.from.id,
         });
 

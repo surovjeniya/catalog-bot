@@ -110,6 +110,7 @@ export class AppUpdate {
       );
     }
 
+    //@ts-ignore
     const user = await this.userService.findOne({ telegram_id: id });
     console.log(user);
 
@@ -120,6 +121,7 @@ export class AppUpdate {
         is_bot,
         last_name,
         username: ctx.from.username ? ctx.from.username : null,
+        //@ts-ignore
         telegram_id: id,
         utm: utm && (<any>Object).values(Utm).includes(utm) ? utm : null,
       });
