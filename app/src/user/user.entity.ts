@@ -22,7 +22,7 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, type: 'bigint' })
+  @Column({ type: 'bigint' })
   telegram_id: number;
 
   @Column()
