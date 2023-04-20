@@ -29,8 +29,18 @@ import { MailingModule } from './mailing/mailing.module';
     ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) =>
-        getTypeOrmConfig(configService),
+      useFactory: (configService: ConfigService) => ({
+        supportBigNumbers: true,
+        bigNumberStrings: false,
+        type: 'postgres',
+        database: configService.get('POSTGRES_DB'),
+        username: configService.get('POSTGRES_USER'),
+        password: configService.get('POSTGRES_PASSWORD'),
+        port: configService.get('POSTGRES_PORT'),
+        host: configService.get('POSTGRES_HOST'),
+        synchronize: true,
+        autoLoadEntities: true,
+      }),
     }),
     TelegrafModule.forRootAsync({
       inject: [ConfigService],

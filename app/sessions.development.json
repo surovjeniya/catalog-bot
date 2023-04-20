@@ -36,12 +36,12 @@
           "last_name": "P",
           "username": "JayPr0"
         },
-        "action": "create-service",
+        "action": null,
         "create_service_ctx": {
-          "categorySlug": "dizajnery",
-          "chatId": "-1001969828003",
+          "chatId": null,
           "description": null,
           "image": null,
+          "categorySlug": null,
           "price": null,
           "serviceId": null
         },
@@ -178,6 +178,30 @@
     },
     {
       "id": "-1001726971674:5627133298",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:1901466566",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:5722199379",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:5961709445",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:6254218212",
       "data": {
         "__scenes": {}
       }

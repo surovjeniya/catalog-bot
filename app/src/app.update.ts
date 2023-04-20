@@ -109,6 +109,7 @@ export class AppUpdate {
         Number(serviceId),
       );
     }
+
     const user = await this.userService.findOne({ telegram_id: id });
     console.log(user);
 
