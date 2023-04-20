@@ -75,15 +75,14 @@ export class AppUpdate {
 
   @Command(Commands.start)
   async start(@Ctx() ctx: TelegrafContext) {
-    const { first_name, id, is_bot, language_code, last_name, username } =
-      ctx.from;
+    const { first_name, id, is_bot, language_code, last_name } = ctx.from;
     ctx.session.from = {
       first_name,
       id,
       is_bot,
       language_code,
       last_name,
-      username,
+      username: ctx.from.username ? ctx.from.username : null,
     };
     ctx.session.action = null;
     ctx.session.create_service_ctx = {
@@ -118,7 +117,7 @@ export class AppUpdate {
         language_code,
         is_bot,
         last_name,
-        username,
+        username: ctx.from.username ? ctx.from.username : null,
         telegram_id: id,
         utm: utm && (<any>Object).values(Utm).includes(utm) ? utm : null,
       });
