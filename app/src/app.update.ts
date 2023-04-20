@@ -112,7 +112,6 @@ export class AppUpdate {
 
     //@ts-ignore
     const user = await this.userService.findOne({ telegram_id: id });
-    console.log(user);
 
     if (!user) {
       await this.userService.create({
@@ -126,6 +125,8 @@ export class AppUpdate {
         utm: utm && (<any>Object).values(Utm).includes(utm) ? utm : null,
       });
     }
+
+    console.log(user);
 
     if (!utm || (utm && !utm.match('fast_review'))) {
       // 1.check user by tg_id
