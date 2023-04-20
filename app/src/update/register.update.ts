@@ -85,6 +85,8 @@ export class RegisterUpdate {
     const listener = await chatListener(ctx, this.configService);
     // --
     if (ctx.session.action === Actions.review) {
+      console.log(3);
+
       const reviewMessage = await this.fastReviewService.createReviewMessage(
         ctx,
         message,

@@ -31,8 +31,13 @@ export class FastReviewService {
           : 'дорогой пользователь.\nОпишите ваши впечатления об услуге 🔡'
       }`,
     );
+
+    console.log('two');
   }
+
   async createReviewMessage(ctx: TelegrafContext, message: string) {
+    console.log(4);
+
     ctx.session.fast_review.message = message;
     if (ctx.session.fast_review.message.length) {
       await ctx.reply('Отлично, оставьте оценку', {
