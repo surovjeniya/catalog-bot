@@ -8,9 +8,11 @@ services:
       - ./app/envs/.development.env
     volumes:
       - ./app:/usr/src/app
+      - app_session_data_dev:/usr/src/app/sessions
   app_db:
     volumes:
       - app_db-data-dev:/var/lib/postgresql/data
+
 
 
   

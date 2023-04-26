@@ -14,7 +14,7 @@ services:
     depends_on:
       - app_db
     volumes:
-      - /usr/src/app/node_modules
+      - app_session_data:/usr/src/app/sessions
     ports:
       - "3000:3000"
   
@@ -63,4 +63,8 @@ volumes:
   app_db-data:
     driver: local
   app_db-data-dev:
+    driver: local
+  app_session_data:
+    driver: local
+  app_session_data_dev:
     driver: local

@@ -1,0 +1,67 @@
+{
+  "sessions": [
+    {
+      "id": "671646655:671646655",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Evgeniy",
+          "id": 671646655,
+          "is_bot": false,
+          "language_code": "ru",
+          "last_name": "Surov",
+          "username": "surovjeniy"
+        },
+        "action": "create-service",
+        "create_service_ctx": {
+          "categorySlug": "dizajnery",
+          "chatId": "-1001969828003",
+          "description": "Nskss",
+          "image": [
+            {
+              "file_id": "AgACAgIAAxkBAAJA82RI2nsx6G9SVAdlUUfZmDEOoCVkAAIRxjEbQ79ISvFXP8hLVeI6AQADAgADcwADLwQ",
+              "file_unique_id": "AQADEcYxG0O_SEp4",
+              "file_size": 965,
+              "width": 67,
+              "height": 90
+            },
+            {
+              "file_id": "AgACAgIAAxkBAAJA82RI2nsx6G9SVAdlUUfZmDEOoCVkAAIRxjEbQ79ISvFXP8hLVeI6AQADAgADbQADLwQ",
+              "file_unique_id": "AQADEcYxG0O_SEpy",
+              "file_size": 15924,
+              "width": 240,
+              "height": 320
+            },
+            {
+              "file_id": "AgACAgIAAxkBAAJA82RI2nsx6G9SVAdlUUfZmDEOoCVkAAIRxjEbQ79ISvFXP8hLVeI6AQADAgADeAADLwQ",
+              "file_unique_id": "AQADEcYxG0O_SEp9",
+              "file_size": 82721,
+              "width": 600,
+              "height": 800
+            },
+            {
+              "file_id": "AgACAgIAAxkBAAJA82RI2nsx6G9SVAdlUUfZmDEOoCVkAAIRxjEbQ79ISvFXP8hLVeI6AQADAgADeQADLwQ",
+              "file_unique_id": "AQADEcYxG0O_SEp-",
+              "file_size": 110583,
+              "width": 960,
+              "height": 1280
+            }
+          ],
+          "price": null,
+          "serviceId": null
+        },
+        "login_data": {
+          "identifier": "",
+          "password": "",
+          "validateEmail": false
+        }
+      }
+    },
+    {
+      "id": "-1001969828003:671646655",
+      "data": {
+        "__scenes": {}
+      }
+    }
+  ]
+}
