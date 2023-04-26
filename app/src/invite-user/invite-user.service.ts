@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
 import { TelegrafContext } from 'src/interface/telegraf.context';
 import { UserService } from 'src/user/user.service';
@@ -9,6 +9,8 @@ import { SearchFulfillmentDto } from './dto/search-fulfillment.dto';
 
 @Injectable()
 export class InviteUserService {
+  private readonly logger = new Logger(InviteUserService.name);
+
   constructor(
     @InjectBot() private readonly bot: Telegraf<TelegrafContext>,
     private readonly userService: UserService,
@@ -16,16 +18,16 @@ export class InviteUserService {
 
   async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
     try {
-      // const username = service.profile.contact_telegram
-      //   ? service.profile.contact_telegram.split('/')[1]
-      //   : null;
-      // let userId: string = null;
-      // if (username) {
-      //   const user = await this.userService.findOne({ username });
-      //   if (user && user.telegram_id) {
-      //     userId = user.telegram_id;
-      //   }
-      // }
+      const username = service.profile.contact_telegram
+        ? service.profile.contact_telegram.split('/')[1]
+        : null;
+      let userId: string = null;
+      if (username) {
+        const user = await this.userService.findOne({ username });
+        if (user && user.telegram_id) {
+          userId = user.telegram_id;
+        }
+      }
 
       const message = `
     Фуллфилмент: связаться\n
@@ -43,51 +45,59 @@ export class InviteUserService {
       // }
       return await this.bot.telegram.sendMessage(54452505, message);
     } catch (e) {
-      console.log('Error in bidFulfillment', e.message);
+      this.logger.error('Error from bidFulfillment', e.message);
     }
   }
 
   async searchFulfillment(dto: SearchFulfillmentDto) {
-    const message = `
-    Фуллфилмент:заявка на расчёт\n
-    Местоположение: ${
-      dto.locations && dto.locations.length
-        ? JSON.stringify(dto.locations)
-        : 'отсутствует'
-    } \n
-    Услуги: ${
-      dto.services && dto.services.length
-        ? JSON.stringify(dto.services)
-        : 'отсутствует'
-    } \n
-    Упаковка: ${
-      dto.packaging && dto.packaging.length
-        ? JSON.stringify(dto.packaging)
-        : 'отсутствует'
-    } \n
-    Ценовой сегмент: ${
-      dto.price_segment && dto.price_segment.length
-        ? JSON.stringify(dto.price_segment)
-        : 'отсутствует'
-    } \n
-    Дополнительная информация: ${
-      dto.description && dto.description.length
-        ? JSON.stringify(dto.description)
-        : 'отсутствует'
-    } \n
-    Контакты: ${dto.contacts ? JSON.stringify(dto.contacts) : 'отсутствует'}
-    `;
-    return await this.bot.telegram.sendMessage(54452505, message);
+    try {
+      const message = `
+      Фуллфилмент:заявка на расчёт\n
+      Местоположение: ${
+        dto.locations && dto.locations.length
+          ? JSON.stringify(dto.locations)
+          : 'отсутствует'
+      } \n
+      Услуги: ${
+        dto.services && dto.services.length
+          ? JSON.stringify(dto.services)
+          : 'отсутствует'
+      } \n
+      Упаковка: ${
+        dto.packaging && dto.packaging.length
+          ? JSON.stringify(dto.packaging)
+          : 'отсутствует'
+      } \n
+      Ценовой сегмент: ${
+        dto.price_segment && dto.price_segment.length
+          ? JSON.stringify(dto.price_segment)
+          : 'отсутствует'
+      } \n
+      Дополнительная информация: ${
+        dto.description && dto.description.length
+          ? JSON.stringify(dto.description)
+          : 'отсутствует'
+      } \n
+      Контакты: ${dto.contacts ? JSON.stringify(dto.contacts) : 'отсутствует'}
+      `;
+      return await this.bot.telegram.sendMessage(54452505, message);
+    } catch (e) {
+      this.logger.error('Error from searchFulfillment', e.message);
+    }
   }
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
-    return await this.bot.telegram.sendMessage(
-      54452505,
-      `Фуллфилмент:персональный подбор\n
-      \nИмя: ${name},\n
-       Номер телефона:${phone},\n
-       Telegram: ${telegram_username ? telegram_username : 'отсутствует'}\n,
-       url: ${url ? url : 'отсутствует'}`,
-    );
+    try {
+      return await this.bot.telegram.sendMessage(
+        54452505,
+        `Фуллфилмент:персональный подбор\n
+        \nИмя: ${name},\n
+         Номер телефона:${phone},\n
+         Telegram: ${telegram_username ? telegram_username : 'отсутствует'}\n,
+         url: ${url ? url : 'отсутствует'}`,
+      );
+    } catch (e) {
+      this.logger.error('Error from inviteUser', e.message);
+    }
   }
 }
