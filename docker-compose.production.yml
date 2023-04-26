@@ -13,8 +13,6 @@ services:
       - catalog-bot-network
     depends_on:
       - app_db
-    volumes:
-      - app_session_data:/usr/src/app/sessions
     ports:
       - "3000:3000"
   
@@ -64,7 +62,4 @@ volumes:
     driver: local
   app_db-data-dev:
     driver: local
-  app_session_data:
-    driver: local
-  app_session_data_dev:
-    driver: local
+
