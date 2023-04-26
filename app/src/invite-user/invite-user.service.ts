@@ -15,16 +15,18 @@ export class InviteUserService {
   ) {}
 
   async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
-    // const username = service.profile.contact_telegram
-    //   ? service.profile.contact_telegram.split('/')[1]
-    //   : null;
-    // let userId: number = null;
-    // if (username) {
-    //   const user = await this.userService.findOne({ username });
-    //   if (user && user.telegram_id) {
-    //     userId = user.telegram_id;
-    //   }
-    // }
+    const username = service.profile.contact_telegram
+      ? service.profile.contact_telegram.split('/')[1]
+      : null;
+    let userId: string = null;
+    if (username) {
+      const user = await this.userService.findOne({ username });
+      if (user && user.telegram_id) {
+        userId = user.telegram_id;
+      }
+    }
+
+    console.log(userId);
 
     const message = `
     Фуллфилмент: связаться\n

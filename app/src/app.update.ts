@@ -126,8 +126,6 @@ export class AppUpdate {
       });
     }
 
-    console.log(user);
-
     if (!utm || (utm && !utm.match('fast_review'))) {
       // 1.check user by tg_id
       const user = await this.api.getUserByTelegramId(ctx.from.id);
