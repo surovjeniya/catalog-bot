@@ -48,6 +48,13 @@ export class ViewWebSiteService {
     await ctx.reply(serviceUrl);
     await ctx.reply(
       service.data.attributes.profile.data.attributes.portfolio_url,
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: 'Вернуться в меню', callback_data: 'menu' }],
+          ],
+        },
+      },
     );
   }
 }

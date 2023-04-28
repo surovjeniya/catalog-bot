@@ -88,6 +88,7 @@ export class AppUpdate {
       last_name,
       username: ctx.from.username ? ctx.from.username : null,
     };
+
     ctx.session.action = null;
     ctx.session.create_service_ctx = {
       chatId: null,
@@ -97,6 +98,7 @@ export class AppUpdate {
       price: null,
       serviceId: null,
     };
+
     const utm = ctx.update.message.text.split(' ')[1];
     if (utm && utm.match('download_price')) {
       const serviceId = utm.split('_')[2];
@@ -175,16 +177,24 @@ export class AppUpdate {
         );
       }
       if (user || ctx.session.jwt) {
-        await ctx.replyWithPhoto(
-          'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
-          {
-            caption: startMessage(ctx),
-            reply_markup: {
-              inline_keyboard: startMenu(ctx),
+        if (
+          (utm && utm.match('download_price')) ||
+          (utm && utm.match('view_web_site')) ||
+          (utm && utm.match('fast_review'))
+        ) {
+          return '';
+        } else {
+          await ctx.replyWithPhoto(
+            'https://sellershub.ru/api/uploads/custom_resized_fa37f5c1_8d70_4305_8ba8_13d59adda724_6723c926c7.jpg?updated_at=2023-03-10T11:42:06.123Z',
+            {
+              caption: startMessage(ctx),
+              reply_markup: {
+                inline_keyboard: startMenu(ctx),
+              },
+              parse_mode: 'HTML',
             },
-            parse_mode: 'HTML',
-          },
-        );
+          );
+        }
       }
     }
   }
