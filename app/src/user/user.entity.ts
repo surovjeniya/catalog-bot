@@ -15,6 +15,8 @@ export enum Utm {
   chat_bayer = 'chat_bayer',
   site = 'site',
   fast_review = 'fast_review',
+  download_price = 'download_price',
+  view_web_site = 'view_web_site',
 }
 
 @Entity({ name: 'user' })

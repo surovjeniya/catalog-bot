@@ -10,6 +10,8 @@ import { Utm } from './user/user.entity';
 import { FastReviewService } from './fast-review/fast-review.service';
 import { Actions } from './enum/actions.enum';
 import { SellersHubBotApi } from './utils/api-class.utils';
+import { DownloadPriceService } from './download-price/download-price.service';
+import { ViewWebSiteService } from './view-web-site/view-web-site.service';
 
 @Update()
 export class AppUpdate {
@@ -18,6 +20,8 @@ export class AppUpdate {
     private readonly loggerService: LoggerService,
     private readonly fastReviewService: FastReviewService,
     private readonly api: SellersHubBotApi,
+    private readonly downloadPriceService: DownloadPriceService,
+    private readonly viewWebSiteService: ViewWebSiteService,
   ) {}
 
   // @Action(Commands.start)
@@ -94,6 +98,22 @@ export class AppUpdate {
       serviceId: null,
     };
     const utm = ctx.update.message.text.split(' ')[1];
+    if (utm && utm.match('download_price')) {
+      const serviceId = utm.split('_')[2];
+      ctx.session.download_price = {
+        serviceId: Number(serviceId),
+      };
+      ctx.session.action = Actions['download_price'];
+      const downloadPrice = await this.downloadPriceService.getPrice(ctx);
+    }
+    if (utm && utm.match('view_web_site')) {
+      const serviceId = utm.split('_')[2];
+      ctx.session.view_web_site = {
+        serviceId: Number(serviceId),
+      };
+      ctx.session.action = Actions.view_web_site;
+      const website = await this.viewWebSiteService.getWebSite(ctx);
+    }
     if (utm && utm.match('fast_review')) {
       const serviceId = utm.split('_')[2];
       ctx.session.fast_review = {
@@ -126,7 +146,12 @@ export class AppUpdate {
       });
     }
 
-    if (!utm || (utm && !utm.match('fast_review'))) {
+    if (
+      !utm ||
+      (utm && !utm.match('fast_review')) ||
+      (utm && !utm.match('download_price')) ||
+      (utm && !utm.match('view_web_site'))
+    ) {
       // 1.check user by tg_id
       const user = await this.api.getUserByTelegramId(ctx.from.id);
       // 2.if user login user ,save jwt to session

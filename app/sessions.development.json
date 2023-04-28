@@ -1,3 +1,99 @@
 {
-  "sessions": []
+  "sessions": [
+    {
+      "id": "-1001726971674:742339408",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "671646655:671646655",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "Evgeniy",
+          "id": 671646655,
+          "is_bot": false,
+          "language_code": "ru",
+          "last_name": "Surov",
+          "username": "surovjeniy"
+        },
+        "action": "view_web_site",
+        "create_service_ctx": {
+          "chatId": null,
+          "description": null,
+          "image": null,
+          "categorySlug": null,
+          "price": null,
+          "serviceId": null
+        },
+        "jwt": null,
+        "download_price": {
+          "serviceId": 1011
+        },
+        "view_web_site": {
+          "serviceId": null
+        }
+      }
+    },
+    {
+      "id": "-1001726971674:5070872958",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:501497543",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:5862387775",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:6284420276",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "-1001726971674:934711049",
+      "data": {
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "934711049:934711049",
+      "data": {
+        "__scenes": {},
+        "from": {
+          "first_name": "🖤 ARAKSIA 🖤",
+          "id": 934711049,
+          "is_bot": false,
+          "language_code": "ru",
+          "username": "araksia888"
+        },
+        "action": null,
+        "create_service_ctx": {
+          "chatId": null,
+          "description": null,
+          "image": null,
+          "categorySlug": null,
+          "price": null,
+          "serviceId": null
+        },
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQxMSwiaWF0IjoxNjgyNjc3NjQwLCJleHAiOjE2ODUyNjk2NDB9.JHoSiJm2mqJPrAMXQn7kOLYYfqTaM2E4gCEUUsoGMY0"
+      }
+    },
+    {
+      "id": "-1001726971674:5889782887",
+      "data": {
+        "__scenes": {}
+      }
+    }
+  ]
 }

@@ -23,6 +23,8 @@ import { FastReviewModule } from './fast-review/fast-review.module';
 import { AuthModule } from './auth/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MailingModule } from './mailing/mailing.module';
+import { DownloadPriceModule } from './download-price/download-price.module';
+import { ViewWebSiteModule } from './view-web-site/view-web-site.module';
 
 @Module({
   imports: [
@@ -78,6 +80,8 @@ import { MailingModule } from './mailing/mailing.module';
     LoggerModule,
     SupportModule,
     SignInModule,
+    DownloadPriceModule,
+    ViewWebSiteModule,
   ],
   providers: [AppUpdate, RegisterUpdate, SellersHubBotApi],
 })

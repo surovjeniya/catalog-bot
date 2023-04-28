@@ -62,6 +62,12 @@ export interface TelegrafContext extends Context {
       phone_number?: any;
     };
     action: Actions;
+    download_price: {
+      serviceId?: number;
+    };
+    view_web_site: {
+      serviceId?: number;
+    };
     fast_review: {
       serviceId?: number;
       message: string;

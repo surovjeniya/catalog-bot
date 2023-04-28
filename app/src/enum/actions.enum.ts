@@ -5,4 +5,6 @@ export enum Actions {
   'personal-specialist' = 'personal-specialist',
   review = 'review',
   'send-to-chat' = 'send-to-chat',
+  'download_price' = 'download_price',
+  'view_web_site' = 'view_web_site',
 }
