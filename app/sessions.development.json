@@ -18,7 +18,7 @@
           "last_name": "Surov",
           "username": "surovjeniy"
         },
-        "action": "view_web_site",
+        "action": "download_price",
         "create_service_ctx": {
           "chatId": null,
           "description": null,
@@ -29,9 +29,15 @@
         },
         "jwt": null,
         "download_price": {
-          "serviceId": 1011
+          "serviceId": 1630
         },
         "view_web_site": {
+          "serviceId": null
+        },
+        "fast_review": {
+          "message": null,
+          "rating": null,
+          "username": null,
           "serviceId": null
         }
       }
@@ -124,7 +130,7 @@
           "language_code": "ru",
           "username": "yahor_dashko"
         },
-        "action": null,
+        "action": "view_web_site",
         "create_service_ctx": {
           "chatId": null,
           "description": null,
@@ -134,7 +140,7 @@
           "serviceId": null
         },
         "download_price": {
-          "serviceId": 1011
+          "serviceId": null
         },
         "login_data": {
           "identifier": "",
@@ -142,15 +148,21 @@
           "validateEmail": false
         },
         "view_web_site": {
-          "serviceId": null
+          "serviceId": 1018
         },
         "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQxMiwiaWF0IjoxNjgyNjkwMDQ1LCJleHAiOjE2ODUyODIwNDV9.yfl_HrGf1rCVB5FW32LI3mrqWFyMs7ctmpFubb55FII",
         "fast_review": {
-          "message": "qwerty",
-          "rating": "4",
-          "username": "yahor_dashko",
-          "serviceId": 1011
+          "message": null,
+          "rating": null,
+          "username": null,
+          "serviceId": null
         }
+      }
+    },
+    {
+      "id": "-1001726971674:5710724252",
+      "data": {
+        "__scenes": {}
       }
     }
   ]

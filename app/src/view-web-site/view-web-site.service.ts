@@ -15,7 +15,7 @@ export class ViewWebSiteService {
 
   async getWebSite(ctx: TelegrafContext) {
     const service = await this.api.getService(
-      ctx.session.download_price.serviceId,
+      ctx.session.view_web_site.serviceId,
       ctx,
     );
 

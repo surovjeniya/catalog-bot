@@ -24,6 +24,19 @@ export class MenuService {
   }
 
   clearSession(ctx: TelegrafContext) {
+    ctx.session.fast_review = {
+      message: null,
+      rating: null,
+      username: null,
+      serviceId: null,
+    };
+
+    ctx.session.view_web_site = {
+      serviceId: null,
+    };
+    ctx.session.download_price = {
+      serviceId: null,
+    };
     ctx.session.action = null;
     ctx.session.create_service_ctx = {
       chatId: null,

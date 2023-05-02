@@ -89,6 +89,18 @@ export class AppUpdate {
       username: ctx.from.username ? ctx.from.username : null,
     };
 
+    ctx.session.fast_review = {
+      message: null,
+      rating: null,
+      username: null,
+      serviceId: null,
+    };
+    ctx.session.view_web_site = {
+      serviceId: null,
+    };
+    ctx.session.download_price = {
+      serviceId: null,
+    };
     ctx.session.action = null;
     ctx.session.create_service_ctx = {
       chatId: null,
@@ -100,8 +112,10 @@ export class AppUpdate {
     };
 
     const utm = ctx.update.message.text.split(' ')[1];
+
     if (utm && utm.match('download_price')) {
-      const serviceId = utm.split('_')[2];
+      const utmArr = utm.split('_');
+      const serviceId = utmArr[utmArr.length - 1];
       ctx.session.download_price = {
         serviceId: Number(serviceId),
       };
@@ -109,7 +123,9 @@ export class AppUpdate {
       const downloadPrice = await this.downloadPriceService.getPrice(ctx);
     }
     if (utm && utm.match('view_web_site')) {
-      const serviceId = utm.split('_')[2];
+      const utmArr = utm.split('_');
+      const serviceId = utmArr[utmArr.length - 1];
+
       ctx.session.view_web_site = {
         serviceId: Number(serviceId),
       };
@@ -117,7 +133,8 @@ export class AppUpdate {
       const website = await this.viewWebSiteService.getWebSite(ctx);
     }
     if (utm && utm.match('fast_review')) {
-      const serviceId = utm.split('_')[2];
+      const utmArr = utm.split('_');
+      const serviceId = utmArr[utmArr.length - 1];
       ctx.session.fast_review = {
         message: null,
         rating: null,
