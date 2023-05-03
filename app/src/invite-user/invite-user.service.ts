@@ -19,16 +19,6 @@ export class InviteUserService {
 
   async bidFulfillment({ contacts, service, service_id }: BidFulFillmentDto) {
     try {
-      // const username = service.profile.contact_telegram
-      //   ? service.profile.contact_telegram.split('/')[1]
-      //   : null;
-      // let userId: string = null;
-      // if (username) {
-      //   const user = await this.userService.findOne({ username });
-      //   if (user && user.telegram_id) {
-      //     userId = user.telegram_id;
-      //   }
-      // }
       const username =
         service.profile && service.profile.contact_telegram
           ? service.profile.contact_telegram.split('/')[1]
@@ -49,9 +39,9 @@ export class InviteUserService {
     Email: ${contacts.email ? contacts.email : 'отсутствует'}\n
     Id услуги: ${service.id}
     `;
-      if (user) {
-        await this.bot.telegram.sendMessage(user.telegram_id, message);
-      }
+      // if (user) {
+      //   await this.bot.telegram.sendMessage(user.telegram_id, message);
+      // }
       return await this.bot.telegram.sendMessage(54452505, message);
     } catch (e) {
       this.logger.error('Error from bidFulfillment', e.message);
