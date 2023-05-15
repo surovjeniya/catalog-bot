@@ -86,11 +86,13 @@ export class InviteUserService {
     }
   }
 
-  async searchDesigner(dto:SearchDesignerDto){
+  async searchDesigner({contacts,description,design,price,priceNumber,quantity,services}:SearchDesignerDto){
     try {
-      console.log(dto);
-      
-    }catch(e){}
+      const message = `Заявка на поиск дизайнера\n\nТип дизайна: ${design ? JSON.stringify(design) : null}\nДоп услуги: ${services ? JSON.stringify(services) : null}\nКол-во слайдов: ${quantity ? JSON.stringify(quantity) : null}\nБюджет: ${price ? JSON.stringify(price) : null}\nДетали заказа: ${description ? JSON.stringify(description) : null}\nКонтакты: ${contacts ? JSON.stringify(contacts) : null}`
+      return await this.bot.telegram.sendMessage(54452505,message)
+    }catch(e){
+      console.error('Error from searchDesigner',e.message)
+    }
   }
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
