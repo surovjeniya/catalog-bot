@@ -6,6 +6,7 @@ import { UserService } from 'src/user/user.service';
 import { Telegraf } from 'telegraf';
 import { BidFulFillmentDto } from './dto/bid-fulfillment.dto';
 import { InviteUserDto } from './dto/invite-user.dto';
+import { SearchDesignerDto } from './dto/search-designer.dto';
 import { SearchFulfillmentDto } from './dto/search-fulfillment.dto';
 
 @Injectable()
@@ -83,6 +84,13 @@ export class InviteUserService {
     } catch (e) {
       this.logger.error('Error from searchFulfillment', e.message);
     }
+  }
+
+  async searchDesigner(dto:SearchDesignerDto){
+    try {
+      console.log(dto);
+      
+    }catch(e){}
   }
 
   async inviteUser({ name, phone, telegram_username, url }: InviteUserDto) {
