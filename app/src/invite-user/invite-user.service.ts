@@ -89,6 +89,7 @@ export class InviteUserService {
   async searchDesigner({contacts,description,design,price,priceNumber,quantity,services}:SearchDesignerDto){
     try {
       const message = `Заявка на поиск дизайнера\n\nТип дизайна: ${design ? JSON.stringify(design) : null}\nДоп услуги: ${services ? JSON.stringify(services) : null}\nКол-во слайдов: ${quantity ? JSON.stringify(quantity) : null}\nБюджет: ${price ? JSON.stringify(price) : null}\nДетали заказа: ${description ? JSON.stringify(description) : null}\nКонтакты: ${contacts ? JSON.stringify(contacts) : null}`
+      await this.bot.telegram.sendMessage(5831749071,message) 
       return await this.bot.telegram.sendMessage(54452505,message)
     }catch(e){
       console.error('Error from searchDesigner',e.message)
