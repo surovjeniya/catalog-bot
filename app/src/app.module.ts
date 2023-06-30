@@ -66,7 +66,7 @@ import { ViewWebSiteModule } from './view-web-site/view-web-site.module';
         PORT: Joi.number().required(),
       }),
     }),
-    // MailingModule,
+    MailingModule,
     AuthModule,
     FastReviewModule,
     MenuModule,

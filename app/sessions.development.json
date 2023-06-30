@@ -18,7 +18,7 @@
           "last_name": "Surov",
           "username": "surovjeniy"
         },
-        "action": "download_price",
+        "action": null,
         "create_service_ctx": {
           "chatId": null,
           "description": null,
@@ -29,7 +29,7 @@
         },
         "jwt": null,
         "download_price": {
-          "serviceId": 1630
+          "serviceId": null
         },
         "view_web_site": {
           "serviceId": null
