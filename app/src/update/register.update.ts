@@ -62,7 +62,7 @@ export class RegisterUpdate {
   @On('photo')
   async getPhoto(@Ctx() ctx: TelegrafContext, @Message('photo') photo: any) {
     if (ctx.update.message.chat.type === 'supergroup') {
-      const listener = await chatListener(ctx, this.configService);
+      // const listener = await chatListener(ctx, this.configService);
     }
     if (ctx.update.message.chat.type === 'private') {
       if (ctx.session.action === Actions['create-service']) {
@@ -82,7 +82,7 @@ export class RegisterUpdate {
     @Ctx() ctx: TelegrafContext,
   ) {
     //chat listeners
-    const listener = await chatListener(ctx, this.configService);
+    // const listener = await chatListener(ctx, this.configService);
     // --
     if (ctx.session.action === Actions.review) {
       console.log(3);
