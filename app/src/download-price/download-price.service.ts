@@ -21,8 +21,9 @@ export class DownloadPriceService {
       ctx.session.download_price.serviceId,
       ctx,
     );
-    let xlsxFileName: string = null;
-    let xlsxFileUrl: string = null;
+
+    let fileName: string = null;
+    let fileUrl: string = null;
     const { slug: categorySlug } =
       service.data.attributes.service_categories.data[0].attributes;
     const { slug: parentCategorySlug } =
@@ -31,28 +32,29 @@ export class DownloadPriceService {
     const serviceUrl = `${this.configService.get(
       'WEB',
     )}/catalog/${parentCategorySlug}/${categorySlug}/${service.data.id}`;
+    console.log(serviceUrl);
     if (
       service.data.attributes.price_file &&
       service.data.attributes.price_file.data.length
     ) {
-      xlsxFileName = `${service.data.id}.xlsx`;
-
-      xlsxFileUrl = `${this.configService.get('API')}${
+      fileUrl = `${this.configService.get('API')}${
         service.data.attributes.price_file.data[0].attributes.url
       }`;
+
+      fileName = fileUrl.split('/')[fileUrl.split('/').length - 1];
     } else {
       throw new Error('File not found');
     }
 
     const response = await axios({
       method: 'get',
-      url: xlsxFileUrl,
+      url: fileUrl,
       responseType: 'stream',
     });
 
     if (response.data) {
       new Promise((res, rej) => {
-        const stream = fs.createWriteStream(path.join(__dirname, xlsxFileName));
+        const stream = fs.createWriteStream(path.join(__dirname, fileName));
         response.data.pipe(stream);
         stream.on('finish', () => {
           ctx.reply(
@@ -65,7 +67,7 @@ export class DownloadPriceService {
           );
           ctx.reply(serviceUrl);
           ctx.replyWithDocument(
-            { source: path.join(__dirname, xlsxFileName) },
+            { source: path.join(__dirname, fileName) },
             {
               reply_markup: {
                 inline_keyboard: [
